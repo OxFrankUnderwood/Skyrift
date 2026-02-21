@@ -14,6 +14,7 @@ struct LocationSearchView: View {
     @State private var searchResults: [WeatherLocation] = []
     @State private var isSearching = false
     @State private var searchError: String?
+    @State private var searchTask: Task<Void, Never>?
 
     private let service = WeatherService()
 
@@ -106,12 +107,20 @@ struct LocationSearchView: View {
             }
             .searchable(text: $searchText, prompt: "Şehir veya ülke ara...")
             .onSubmit(of: .search) {
+                searchTask?.cancel()
                 performSearch()
             }
             .onChange(of: searchText) { _, newValue in
+                searchTask?.cancel()
                 if newValue.isEmpty {
                     searchResults = []
                     searchError = nil
+                    return
+                }
+                searchTask = Task {
+                    try? await Task.sleep(for: .milliseconds(500))
+                    guard !Task.isCancelled else { return }
+                    performSearch()
                 }
             }
             .overlay {
