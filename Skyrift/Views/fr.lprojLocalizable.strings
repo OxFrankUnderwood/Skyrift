@@ -1,0 +1,98 @@
+/* Skyrift - Français */
+
+"close" = "Fermer";
+"retry" = "Réessayer";
+"loading" = "Chargement...";
+
+"weather_tab" = "Météo";
+"locations_tab" = "Emplacements";
+"settings_tab" = "Paramètres";
+
+"loading_weather" = "Chargement de la météo...";
+"select_location" = "Sélectionner un emplacement";
+"use_my_location" = "Utiliser ma position";
+
+"feels_like" = "Ressenti";
+"humidity" = "Humidité";
+"wind" = "Vent";
+"uv_index" = "Indice UV";
+"visibility" = "Visibilité";
+"pressure" = "Pression";
+"cloudiness" = "Nébulosité";
+"air_quality" = "Qualité de l'air";
+
+"uv_low" = "Faible";
+"uv_moderate" = "Modéré";
+"uv_high" = "Élevé";
+"uv_very_high" = "Très élevé";
+"uv_extreme" = "Extrême";
+
+"visibility_very_poor" = "Très mauvaise";
+"visibility_poor" = "Mauvaise";
+"visibility_moderate" = "Modérée";
+"visibility_good" = "Bonne";
+
+"pressure_low" = "Basse";
+"pressure_normal" = "Normale";
+"pressure_high" = "Haute";
+
+"clouds_few" = "Peu de nuages";
+"clouds_scattered" = "Nuages épars";
+"clouds_broken" = "Nuages fragmentés";
+"clouds_overcast" = "Couvert";
+
+"locations_title" = "Emplacements";
+"use_current_location" = "Utiliser la position actuelle";
+"saved_locations" = "Emplacements enregistrés";
+"popular_cities" = "Villes populaires";
+"search_placeholder" = "Rechercher ville ou pays...";
+"no_results" = "Aucun résultat trouvé";
+"search_results" = "Résultats de recherche";
+
+"settings" = "Paramètres";
+"units" = "Unités";
+"temperature_unit" = "Unité de température";
+"temperature_unit_desc" = "Comment afficher les températures";
+"appearance" = "Apparence";
+"animated_backgrounds" = "Fonds animés";
+"animated_backgrounds_desc" = "Animations basées sur la météo";
+"language" = "Langue";
+"language_desc" = "Langue de l'application";
+"about" = "À propos";
+"version" = "Version";
+"system_default" = "Par défaut du système";
+"language_change_instant" = "Les changements de langue s'appliquent instantanément";
+
+"loading_hourly" = "Chargement des données horaires...";
+"no_hourly_data" = "Aucune donnée horaire disponible pour ce jour";
+"temperature_change" = "Changement de température";
+"precipitation_probability" = "Probabilité de précipitations";
+"wind_speed" = "Vitesse du vent";
+"humidity_level" = "Niveau d'humidité";
+"hourly_detail" = "Détail horaire";
+"hour" = "Heure";
+"temperature" = "Température";
+"precipitation" = "Précipitation";
+
+"weather_clear" = "Clair";
+"weather_mostly_clear" = "Généralement clair";
+"weather_partly_cloudy" = "Partiellement nuageux";
+"weather_overcast" = "Couvert";
+"weather_foggy" = "Brumeux";
+"weather_drizzle" = "Bruine";
+"weather_freezing_drizzle" = "Bruine verglaçante";
+"weather_rainy" = "Pluvieux";
+"weather_freezing_rain" = "Pluie verglaçante";
+"weather_snowy" = "Neigeux";
+"weather_snow_grains" = "Grains de neige";
+"weather_rain_showers" = "Averses de pluie";
+"weather_snow_showers" = "Averses de neige";
+"weather_thunderstorm" = "Orage";
+"weather_thunderstorm_hail" = "Orage avec grêle";
+"weather_cloudy" = "Nuageux";
+
+"air_quality_good" = "Bon";
+"air_quality_moderate" = "Modéré";
+"air_quality_poor" = "Mauvais";
+"air_quality_very_poor" = "Très mauvais";
+"air_quality_unknown" = "Inconnu";

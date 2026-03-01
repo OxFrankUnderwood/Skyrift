@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings (English)
+  SkyriftWidget
+  
+  Localization for Widget Extension
+*/
+
+// MARK: - Weather Conditions
+"weather_clear" = "Clear";
+"weather_mostly_clear" = "Mostly Clear";
+"weather_partly_cloudy" = "Partly Cloudy";
+"weather_overcast" = "Overcast";
+"weather_foggy" = "Foggy";
+"weather_drizzle" = "Drizzle";
+"weather_freezing_drizzle" = "Freezing Drizzle";
+"weather_rainy" = "Rainy";
+"weather_freezing_rain" = "Freezing Rain";
+"weather_snowy" = "Snowy";
+"weather_snow_grains" = "Snow Grains";
+"weather_rain_showers" = "Rain Showers";
+"weather_snow_showers" = "Snow Showers";
+"weather_thunderstorm" = "Thunderstorm";
+"weather_thunderstorm_hail" = "Thunderstorm with Hail";
+"weather_cloudy" = "Cloudy";

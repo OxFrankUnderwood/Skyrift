@@ -1,0 +1,92 @@
+/* Skyrift - English */
+
+"close" = "Close";
+"retry" = "Retry";
+"loading" = "Loading...";
+
+"weather_tab" = "Weather";
+"locations_tab" = "Locations";
+"settings_tab" = "Settings";
+
+"loading_weather" = "Loading weather...";
+"select_location" = "Select a location for weather";
+"use_my_location" = "Use My Location";
+
+"feels_like" = "Feels Like";
+"humidity" = "Humidity";
+"wind" = "Wind";
+"uv_index" = "UV Index";
+"visibility" = "Visibility";
+"pressure" = "Pressure";
+"cloudiness" = "Cloudiness";
+"air_quality" = "Air Quality";
+
+"uv_low" = "Low";
+"uv_moderate" = "Moderate";
+"uv_high" = "High";
+"uv_very_high" = "Very High";
+"uv_extreme" = "Extreme";
+
+"visibility_very_poor" = "Very Poor";
+"visibility_poor" = "Poor";
+"visibility_moderate" = "Moderate";
+"visibility_good" = "Good";
+
+"pressure_low" = "Low";
+"pressure_normal" = "Normal";
+"pressure_high" = "High";
+
+"clouds_few" = "Few Clouds";
+"clouds_scattered" = "Scattered Clouds";
+"clouds_broken" = "Broken Clouds";
+"clouds_overcast" = "Overcast";
+
+"locations_title" = "Locations";
+"use_current_location" = "Use Current Location";
+"saved_locations" = "Saved Locations";
+"popular_cities" = "Popular Cities";
+"search_placeholder" = "Search city or country...";
+"no_results" = "No results found";
+"search_results" = "Search Results";
+
+"settings" = "Settings";
+"units" = "Units";
+"temperature_unit" = "Temperature Unit";
+"temperature_unit_desc" = "How to display temperatures";
+"appearance" = "Appearance";
+"animated_backgrounds" = "Animated Backgrounds";
+"animated_backgrounds_desc" = "Weather-based animations";
+"language" = "Language";
+"language_desc" = "App language";
+"about" = "About";
+"version" = "Version";
+"system_default" = "System Default";
+"language_change_instant" = "Language changes apply instantly";
+
+"loading_hourly" = "Loading hourly data...";
+"no_hourly_data" = "No hourly data available for this day";
+"temperature_change" = "Temperature Change";
+"precipitation_probability" = "Precipitation Probability";
+"wind_speed" = "Wind Speed";
+"humidity_level" = "Humidity Level";
+"hourly_detail" = "Hourly Detail";
+"hour" = "Hour";
+"temperature" = "Temperature";
+"precipitation" = "Precipitation";
+
+"weather_clear" = "Clear";
+"weather_mostly_clear" = "Mostly Clear";
+"weather_partly_cloudy" = "Partly Cloudy";
+"weather_overcast" = "Overcast";
+"weather_foggy" = "Foggy";
+"weather_drizzle" = "Drizzle";
+"weather_freezing_drizzle" = "Freezing Drizzle";
+"weather_rainy" = "Rainy";
+"weather_freezing_rain" = "Freezing Rain";
+"weather_snowy" = "Snowy";
+"weather_snow_grains" = "Snow Grains";
+"weather_rain_showers" = "Rain Showers";
+"weather_snow_showers" = "Snow Showers";
+"weather_thunderstorm" = "Thunderstorm";
+"weather_thunderstorm_hail" = "Thunderstorm with Hail";
+"weather_cloudy" = "Cloudy";

@@ -1,0 +1,98 @@
+/* Skyrift - Русский */
+
+"close" = "Закрыть";
+"retry" = "Повторить";
+"loading" = "Загрузка...";
+
+"weather_tab" = "Погода";
+"locations_tab" = "Места";
+"settings_tab" = "Настройки";
+
+"loading_weather" = "Загрузка погоды...";
+"select_location" = "Выберите местоположение";
+"use_my_location" = "Использовать мое местоположение";
+
+"feels_like" = "Ощущается как";
+"humidity" = "Влажность";
+"wind" = "Ветер";
+"uv_index" = "УФ-индекс";
+"visibility" = "Видимость";
+"pressure" = "Давление";
+"cloudiness" = "Облачность";
+"air_quality" = "Качество воздуха";
+
+"uv_low" = "Низкий";
+"uv_moderate" = "Умеренный";
+"uv_high" = "Высокий";
+"uv_very_high" = "Очень высокий";
+"uv_extreme" = "Экстремальный";
+
+"visibility_very_poor" = "Очень плохая";
+"visibility_poor" = "Плохая";
+"visibility_moderate" = "Умеренная";
+"visibility_good" = "Хорошая";
+
+"pressure_low" = "Низкое";
+"pressure_normal" = "Нормальное";
+"pressure_high" = "Высокое";
+
+"clouds_few" = "Малооблачно";
+"clouds_scattered" = "Переменная облачность";
+"clouds_broken" = "Облачно с прояснениями";
+"clouds_overcast" = "Пасмурно";
+
+"locations_title" = "Места";
+"use_current_location" = "Использовать текущее местоположение";
+"saved_locations" = "Сохраненные места";
+"popular_cities" = "Популярные города";
+"search_placeholder" = "Поиск города или страны...";
+"no_results" = "Результатов не найдено";
+"search_results" = "Результаты поиска";
+
+"settings" = "Настройки";
+"units" = "Единицы";
+"temperature_unit" = "Единица температуры";
+"temperature_unit_desc" = "Как отображать температуру";
+"appearance" = "Оформление";
+"animated_backgrounds" = "Анимированные фоны";
+"animated_backgrounds_desc" = "Анимации на основе погоды";
+"language" = "Язык";
+"language_desc" = "Язык приложения";
+"about" = "О программе";
+"version" = "Версия";
+"system_default" = "По умолчанию системы";
+"language_change_instant" = "Изменения языка применяются мгновенно";
+
+"loading_hourly" = "Загрузка почасовых данных...";
+"no_hourly_data" = "Нет почасовых данных для этого дня";
+"temperature_change" = "Изменение температуры";
+"precipitation_probability" = "Вероятность осадков";
+"wind_speed" = "Скорость ветра";
+"humidity_level" = "Уровень влажности";
+"hourly_detail" = "Почасовая информация";
+"hour" = "Час";
+"temperature" = "Температура";
+"precipitation" = "Осадки";
+
+"weather_clear" = "Ясно";
+"weather_mostly_clear" = "В основном ясно";
+"weather_partly_cloudy" = "Переменная облачность";
+"weather_overcast" = "Пасмурно";
+"weather_foggy" = "Туман";
+"weather_drizzle" = "Морось";
+"weather_freezing_drizzle" = "Ледяная морось";
+"weather_rainy" = "Дождливо";
+"weather_freezing_rain" = "Ледяной дождь";
+"weather_snowy" = "Снег";
+"weather_snow_grains" = "Снежная крупа";
+"weather_rain_showers" = "Ливни";
+"weather_snow_showers" = "Снегопад";
+"weather_thunderstorm" = "Гроза";
+"weather_thunderstorm_hail" = "Гроза с градом";
+"weather_cloudy" = "Облачно";
+
+"air_quality_good" = "Хороший";
+"air_quality_moderate" = "Умеренный";
+"air_quality_poor" = "Плохой";
+"air_quality_very_poor" = "Очень плохой";
+"air_quality_unknown" = "Неизвестно";
