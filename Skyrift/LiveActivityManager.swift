@@ -100,8 +100,37 @@ final class LiveActivityManager {
         currentActivity != nil
     }
     
+    // MARK: - Device Support
+
+    /// Bu cihaz Dynamic Island destekliyor mu?
+    /// Dynamic Island: iPhone 14 Pro (iPhone15,2) ve sonrası.
+    /// iPhone 14 / 14 Plus (iPhone14,7 / iPhone14,8) desteklemiyor.
+    static var isDeviceSupported: Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #elseif os(iOS)
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machine = withUnsafePointer(to: &systemInfo.machine) {
+            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
+                String(validatingUTF8: $0)
+            }
+        } ?? ""
+        // Dynamic Island model tanımlayıcıları "iPhone15" ile başlar (14 Pro) ve üzeridir.
+        // Kural: "iPhone{major},{minor}" → major >= 15 → Dynamic Island var.
+        if machine.hasPrefix("iPhone"),
+           let majorStr = machine.dropFirst("iPhone".count).split(separator: ",").first,
+           let major = Int(majorStr) {
+            return major >= 15
+        }
+        return false
+        #else
+        return false
+        #endif
+    }
+
     // MARK: - Settings
-    
+
     /// Kullanıcı Live Activity'yi etkinleştirdi mi?
     var isEnabled: Bool {
         get {

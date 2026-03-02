@@ -80,25 +80,27 @@ struct SettingsView: View {
                     }
                     #endif
 
-                    Toggle(isOn: $liveActivityEnabled) {
-                        Label {
-                            Text("Live Activity")
-                                .font(.body)
-                        } icon: {
-                            Image(systemName: "apps.iphone")
-                                .foregroundStyle(.pink)
+                    if LiveActivityManager.isDeviceSupported {
+                        Toggle(isOn: $liveActivityEnabled) {
+                            Label {
+                                Text("Live Activity")
+                                    .font(.body)
+                            } icon: {
+                                Image(systemName: "apps.iphone")
+                                    .foregroundStyle(.pink)
+                            }
                         }
-                    }
-                    .onChange(of: liveActivityEnabled) { _, newValue in
-                        Task { @MainActor in
-                            LiveActivityManager.shared.isEnabled = newValue
+                        .onChange(of: liveActivityEnabled) { _, newValue in
+                            Task { @MainActor in
+                                LiveActivityManager.shared.isEnabled = newValue
 
-                            // Açıldıysa ve hava durumu varsa başlat
-                            if newValue {
-                                // WeatherViewModel'dan veri al ve başlat
-                                // Bu kısım WeatherView'dan tetiklenecek
-                            } else {
-                                LiveActivityManager.shared.endActivity()
+                                // Açıldıysa ve hava durumu varsa başlat
+                                if newValue {
+                                    // WeatherViewModel'dan veri al ve başlat
+                                    // Bu kısım WeatherView'dan tetiklenecek
+                                } else {
+                                    LiveActivityManager.shared.endActivity()
+                                }
                             }
                         }
                     }
@@ -120,8 +122,10 @@ struct SettingsView: View {
                 } header: {
                     Text("notifications_section".localized)
                 } footer: {
-                    Text("live_activity_footer".localized)
-                        .font(.caption)
+                    if LiveActivityManager.isDeviceSupported {
+                        Text("live_activity_footer".localized)
+                            .font(.caption)
+                    }
                 }
                 
                 // Görünüm
