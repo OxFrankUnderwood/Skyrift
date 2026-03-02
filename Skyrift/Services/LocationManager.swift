@@ -73,6 +73,14 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         print("LocationManager error: \(error.localizedDescription)")
     }
 
+    @available(iOS, deprecated: 26.0, message: "Migrate to MKAddress when API stabilizes")
+    private func extractCityName(from mapItem: MKMapItem) -> String {
+        mapItem.placemark.locality
+            ?? mapItem.placemark.administrativeArea
+            ?? mapItem.name
+            ?? "unknown_location".localized
+    }
+
     private func reverseGeocode(location: CLLocation) {
         // iOS 26+ MapKit kullanımı
         Task {
@@ -90,11 +98,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
             do {
                 let response = try await search.start()
                 if let mapItem = response.mapItems.first {
+                    let resolved = extractCityName(from: mapItem)
                     await MainActor.run {
-                        self.cityName = mapItem.placemark.locality 
-                            ?? mapItem.placemark.administrativeArea 
-                            ?? mapItem.name
-                            ?? "Bilinmeyen Konum"
+                        self.cityName = resolved
                     }
                 }
             } catch {

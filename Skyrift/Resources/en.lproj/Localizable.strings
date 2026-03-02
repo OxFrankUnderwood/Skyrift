@@ -177,3 +177,11 @@
 "smart_alerts_title" = "Smart Alerts";
 "sunrise" = "Sunrise";
 "sunset" = "Sunset";
+
+// MARK: - Error & Fallback
+"unknown_location" = "Unknown Location";
+"weather_load_failed" = "Could not load weather: %@";
+"search_no_results" = "No results found.";
+"search_failed" = "Search failed: %@";
+"notifications_section" = "Notifications";
+"live_activity_footer" = "Dynamic Island support for iPhone 14 Pro and later";

@@ -323,6 +323,14 @@ struct WeatherView: View {
 
     // MARK: - Wind Direction
 
+    // MARK: - Cached Formatters
+
+    private static let hourFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "HH:mm"
+        return f
+    }()
+
     private func compassDirection(_ degrees: Int) -> String {
         let dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
         let index = Int((Double(degrees) / 45.0).rounded()) % 8
@@ -330,26 +338,25 @@ struct WeatherView: View {
     }
 
     private func timeOfDay(_ date: Date) -> String {
-        let fmt = DateFormatter()
-        fmt.dateFormat = "HH:mm"
-        fmt.locale = LanguageManager.shared.currentLocale
-        return fmt.string(from: date)
+        Self.hourFormatter.locale = LanguageManager.shared.currentLocale
+        return Self.hourFormatter.string(from: date)
     }
 
     // MARK: - Inline Hourly Chart
 
+    @ViewBuilder
     private func inlineHourlyChart(hourly: [HourlyForecast]) -> some View {
         let now = Date()
         let points = Array(hourly.filter { $0.time >= now }.prefix(13))
-        guard !points.isEmpty else { return AnyView(EmptyView()) }
+        if points.isEmpty {
+            EmptyView()
+        } else {
+            let temps = points.map { temperatureUnit.convert($0.temperature) }
+            let minTemp = (temps.min() ?? 0) - 2
+            let maxTemp = (temps.max() ?? 0) + 2
+            let startTime = points.first!.time
+            let endTime = points.last!.time
 
-        let temps = points.map { temperatureUnit.convert($0.temperature) }
-        let minTemp = (temps.min() ?? 0) - 2
-        let maxTemp = (temps.max() ?? 0) + 2
-        let startTime = points.first!.time
-        let endTime = points.last!.time
-
-        return AnyView(
             VStack(spacing: 0) {
                 // Temperature chart
                 Chart(points) { point in
@@ -432,13 +439,11 @@ struct WeatherView: View {
                 .padding(.horizontal, 12)
                 .padding(.bottom, 8)
             }
-        )
+        }
     }
 
     private func hourLabel(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
+        Self.hourFormatter.string(from: date)
     }
 
     // Hava durumuna göre gradient renkleri

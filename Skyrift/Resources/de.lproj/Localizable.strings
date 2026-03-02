@@ -165,6 +165,12 @@
 "smart_alerts_title" = "Smarte Warnungen";
 "sunrise" = "Sonnenaufgang";
 "sunset" = "Sonnenuntergang";
+"unknown_location" = "Unbekannter Standort";
+"weather_load_failed" = "Wetter konnte nicht geladen werden: %@";
+"search_no_results" = "Keine Ergebnisse gefunden.";
+"search_failed" = "Suche fehlgeschlagen: %@";
+"notifications_section" = "Benachrichtigungen";
+"live_activity_footer" = "Dynamic Island-Unterstützung für iPhone 14 Pro und neuer";
 "onboarding_title_1" = "Wetter-Tracking";
 "onboarding_desc_1" = "Erhalten Sie sofortigen Zugriff auf aktuelle Wetterinformationen";
 "onboarding_title_2" = "Mehrere Orte";

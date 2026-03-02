@@ -166,6 +166,12 @@
 "smart_alerts_title" = "Alertas inteligentes";
 "sunrise" = "Amanecer";
 "sunset" = "Atardecer";
+"unknown_location" = "Ubicación desconocida";
+"weather_load_failed" = "No se pudo cargar el clima: %@";
+"search_no_results" = "No se encontraron resultados.";
+"search_failed" = "Búsqueda fallida: %@";
+"notifications_section" = "Notificaciones";
+"live_activity_footer" = "Compatibilidad con Dynamic Island para iPhone 14 Pro y posteriores";
 "onboarding_title_1" = "Seguimiento del clima";
 "onboarding_desc_1" = "Accede instantáneamente a la información meteorológica actual";
 "onboarding_title_2" = "Varios lugares";

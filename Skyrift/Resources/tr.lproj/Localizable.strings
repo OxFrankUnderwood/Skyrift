@@ -182,3 +182,11 @@
 "smart_alerts_title" = "Akıllı Uyarılar";
 "sunrise" = "Gün Doğumu";
 "sunset" = "Gün Batımı";
+
+// MARK: - Hata & Fallback
+"unknown_location" = "Bilinmeyen Konum";
+"weather_load_failed" = "Hava durumu yüklenemedi: %@";
+"search_no_results" = "Sonuç bulunamadı.";
+"search_failed" = "Arama başarısız: %@";
+"notifications_section" = "Bildirimler";
+"live_activity_footer" = "iPhone 14 Pro ve sonrası için Dynamic Island desteği";

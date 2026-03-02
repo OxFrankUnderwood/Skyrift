@@ -36,6 +36,11 @@ struct LocationSearchView: View {
         }
     }
     
+    private var defaultCountry: String {
+        let regionCode = Locale.current.region?.identifier ?? "US"
+        return Locale.current.localizedString(forRegionCode: regionCode) ?? "United States"
+    }
+
     // Kullanıcının ülkesini tespit et
     private func detectUserCountry() -> String {
         // 1. LocationManager'dan mevcut konum varsa
@@ -44,32 +49,25 @@ struct LocationSearchView: View {
             // "İstanbul, Türkiye" -> "Türkiye"
             let components = cityName.split(separator: ",")
             if components.count > 1 {
-                return String(components.last?.trimmingCharacters(in: .whitespaces) ?? "Türkiye")
+                return String(components.last?.trimmingCharacters(in: .whitespaces) ?? defaultCountry)
             }
         }
-        
+
         // 2. Kayıtlı konumlardan ilki
         if let firstLocation = viewModel.savedLocations.first {
             let components = firstLocation.name.split(separator: ",")
             if components.count > 1 {
-                return String(components.last?.trimmingCharacters(in: .whitespaces) ?? "Türkiye")
+                return String(components.last?.trimmingCharacters(in: .whitespaces) ?? defaultCountry)
             }
         }
-        
+
         // 3. Locale'den tahmin et
-        let regionCode: String
-        if #available(iOS 16, *) {
-            regionCode = Locale.current.region?.identifier ?? "TR"
-        } else {
-            regionCode = Locale.current.regionCode ?? "TR"
-        }
-        return countryName(from: regionCode)
+        return defaultCountry
     }
     
     // Ülke kodundan ülke adı
     private func countryName(from code: String) -> String {
-        let locale = Locale.current
-        return locale.localizedString(forRegionCode: code) ?? "Türkiye"
+        Locale.current.localizedString(forRegionCode: code) ?? defaultCountry
     }
     
     // Ülkeye göre popüler şehirler
@@ -361,11 +359,11 @@ struct LocationSearchView: View {
                 print("✅ Arama sonuçları geldi: \(results.count) sonuç")
                 searchResults = results
                 if searchResults.isEmpty {
-                    searchError = "Sonuç bulunamadı."
+                    searchError = "search_no_results".localized
                 }
             } catch {
                 print("❌ Arama hatası: \(error.localizedDescription)")
-                searchError = "Arama başarısız: \(error.localizedDescription)"
+                searchError = "search_failed".localized(error.localizedDescription)
             }
             isSearching = false
         }

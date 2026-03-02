@@ -74,7 +74,7 @@ struct ContentView: View {
                 queue: .main
             ) { _ in
                 // Dil değiştiğinde mevcut konumu yeniden yükle
-                Task {
+                Task { @MainActor in
                     if let currentLocation = viewModel.selectedLocation {
                         await viewModel.reloadWeather(for: currentLocation)
                     }

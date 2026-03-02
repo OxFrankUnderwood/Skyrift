@@ -166,6 +166,12 @@
 "smart_alerts_title" = "Умные уведомления";
 "sunrise" = "Восход";
 "sunset" = "Закат";
+"unknown_location" = "Неизвестное местоположение";
+"weather_load_failed" = "Не удалось загрузить погоду: %@";
+"search_no_results" = "Результатов не найдено.";
+"search_failed" = "Ошибка поиска: %@";
+"notifications_section" = "Уведомления";
+"live_activity_footer" = "Поддержка Dynamic Island для iPhone 14 Pro и новее";
 "onboarding_title_1" = "Отслеживание погоды";
 "onboarding_desc_1" = "Получайте мгновенный доступ к актуальной информации о погоде";
 "onboarding_title_2" = "Несколько локаций";

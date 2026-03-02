@@ -118,9 +118,9 @@ struct SettingsView: View {
                         }
                     }
                 } header: {
-                    Text("Bildirimler")
+                    Text("notifications_section".localized)
                 } footer: {
-                    Text("iPhone 14 Pro ve sonrası için Dynamic Island desteği")
+                    Text("live_activity_footer".localized)
                         .font(.caption)
                 }
                 

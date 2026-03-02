@@ -53,12 +53,17 @@ struct DailyForecast: Identifiable, Codable {
     let weatherCode: Int
     let precipitationSum: Double
     let maxWindSpeed: Double
-    
+
     // Yeni özellikler
     let uvIndexMax: Double
     let precipitationProbability: Int // %
     let sunrise: Date
     let sunset: Date
+
+    private enum CodingKeys: String, CodingKey {
+        case date, maxTemp, minTemp, weatherCode, precipitationSum, maxWindSpeed
+        case uvIndexMax, precipitationProbability, sunrise, sunset
+    }
 }
 
 // MARK: - Hourly Forecast
@@ -72,6 +77,11 @@ struct HourlyForecast: Identifiable, Codable {
     let precipitation: Double
     let windSpeed: Double
     let humidity: Int
+
+    private enum CodingKeys: String, CodingKey {
+        case time, temperature, weatherCode, precipitationProbability
+        case precipitation, windSpeed, humidity
+    }
 }
 
 // MARK: - Weather Data

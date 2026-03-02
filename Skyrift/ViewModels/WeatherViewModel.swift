@@ -31,6 +31,11 @@ final class WeatherViewModel {
         let timestamp: Date
     }
     private let diskCacheTTL: TimeInterval = 30 * 60 // 30 dakika
+    private static let hourFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "HH:mm"
+        return f
+    }()
 
     init() {
         loadPersistedLocations()
@@ -111,12 +116,9 @@ final class WeatherViewModel {
                         hourly.time >= now && hourly.time <= now.addingTimeInterval(6 * 3600)
                     }.prefix(6)
                     
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "HH:mm"
-                    
                     let hourlyData: [[String: Any]] = next6Hours.map { hourly in
                         return [
-                            "hour": formatter.string(from: hourly.time),
+                            "hour": Self.hourFormatter.string(from: hourly.time),
                             "temperature": hourly.temperature,
                             "weatherCode": hourly.weatherCode
                         ]
@@ -150,19 +152,12 @@ final class WeatherViewModel {
         } catch {
             print("❌ Yükleme hatası: \(error.localizedDescription)")
             await MainActor.run {
-                errorMessage = "Hava durumu yüklenemedi: \(error.localizedDescription)"
+                errorMessage = "weather_load_failed".localized(error.localizedDescription)
                 isLoading = false
             }
         }
     }
     
-    // Detaylı veri yükleme (saatlik tahminler dahil) - artık gerek yok ama uyumluluk için bırakalım
-    func loadDetailedWeather(for location: WeatherLocation) async {
-        // Zaten loadWeather detaylı yüklüyor, ama yine de çağrılırsa güncelleyelim
-        weatherCache.removeValue(forKey: location.id)
-        await loadWeather(for: location)
-    }
-
     func refresh() async {
         guard let location = selectedLocation else { return }
         // Cache'i temizle ve yeniden yükle
