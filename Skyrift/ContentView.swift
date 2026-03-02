@@ -56,12 +56,11 @@ struct ContentView: View {
                 if let firstSaved = viewModel.savedLocations.first {
                     if firstSaved.isCurrentLocation {
                         locationManager.requestLocation()
-                        // Koordinat gelene kadar bekle (max 3s, 100ms aralıklarla)
-                        for _ in 0..<30 {
-                            if locationManager.coordinate != nil { break }
-                            try? await Task.sleep(for: .milliseconds(100))
+                        // Önceki oturumdan koordinat zaten varsa hemen yükle
+                        if locationManager.coordinate != nil {
+                            await viewModel.selectCurrentLocation(locationManager: locationManager)
                         }
-                        await viewModel.selectCurrentLocation(locationManager: locationManager)
+                        // Yoksa onChange(of: locationManager.coordinate != nil) bekleyecek
                     } else {
                         await viewModel.loadWeather(for: firstSaved)
                     }
@@ -86,6 +85,15 @@ struct ContentView: View {
             // Observer'ı temizle
             if let observer = languageObserver {
                 NotificationCenter.default.removeObserver(observer)
+            }
+        }
+        .onChange(of: locationManager.coordinate != nil) { oldHad, nowHas in
+            // GPS koordinatı ilk kez geldiğinde yükle (önceki oturumdan koordinat yoksa)
+            guard !oldHad && nowHas else { return }
+            if viewModel.savedLocations.first?.isCurrentLocation == true && viewModel.weatherData == nil {
+                Task {
+                    await viewModel.selectCurrentLocation(locationManager: locationManager)
+                }
             }
         }
     }

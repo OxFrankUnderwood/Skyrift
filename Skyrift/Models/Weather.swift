@@ -26,7 +26,7 @@ struct WeatherLocation: Identifiable, Codable, Equatable {
 
 // MARK: - Current Weather
 
-struct CurrentWeather {
+struct CurrentWeather: Codable {
     let temperature: Double
     let apparentTemperature: Double
     let humidity: Int
@@ -45,7 +45,7 @@ struct CurrentWeather {
 
 // MARK: - Daily Forecast
 
-struct DailyForecast: Identifiable {
+struct DailyForecast: Identifiable, Codable {
     let id = UUID()
     let date: Date
     let maxTemp: Double
@@ -63,7 +63,7 @@ struct DailyForecast: Identifiable {
 
 // MARK: - Hourly Forecast
 
-struct HourlyForecast: Identifiable {
+struct HourlyForecast: Identifiable, Codable {
     let id = UUID()
     let time: Date
     let temperature: Double
@@ -76,7 +76,7 @@ struct HourlyForecast: Identifiable {
 
 // MARK: - Weather Data
 
-struct WeatherData {
+struct WeatherData: Codable {
     let current: CurrentWeather
     let daily: [DailyForecast]
     let hourly: [HourlyForecast]
@@ -87,7 +87,7 @@ struct WeatherData {
 
 // MARK: - Air Quality
 
-struct AirQuality {
+struct AirQuality: Codable {
     let aqi: Int // Air Quality Index (1-5)
     let pm25: Double // PM2.5 μg/m³
     let pm10: Double // PM10 μg/m³

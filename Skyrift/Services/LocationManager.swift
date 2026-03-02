@@ -21,7 +21,12 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyKilometer
         authorizationStatus = manager.authorizationStatus
+        // Önceki oturumdan kalan konumu anında yayınla
+        if let lastLocation = manager.location {
+            coordinate = lastLocation.coordinate
+        }
     }
 
     func requestLocation() {

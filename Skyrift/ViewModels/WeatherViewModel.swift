@@ -22,34 +22,67 @@ final class WeatherViewModel {
     private let service = WeatherService()
     private let userDefaultsKey = "savedLocations"
     
-    // Cache sistemi - konum ID'sine göre hava durumu verilerini saklayalım
+    // In-memory cache (oturum boyunca)
     private var weatherCache: [String: WeatherData] = [:]
+
+    // Disk cache için yardımcı struct
+    private struct DiskCacheEntry: Codable {
+        let weather: WeatherData
+        let timestamp: Date
+    }
+    private let diskCacheTTL: TimeInterval = 30 * 60 // 30 dakika
 
     init() {
         loadPersistedLocations()
     }
 
+    // MARK: - Disk Cache
+
+    private func saveWeatherToDisk(_ weather: WeatherData, locationId: String) {
+        let entry = DiskCacheEntry(weather: weather, timestamp: Date())
+        if let data = try? JSONEncoder().encode(entry) {
+            UserDefaults.standard.set(data, forKey: "skyrift_weather_\(locationId)")
+        }
+    }
+
+    private func loadWeatherFromDisk(locationId: String) -> WeatherData? {
+        guard let data = UserDefaults.standard.data(forKey: "skyrift_weather_\(locationId)"),
+              let entry = try? JSONDecoder().decode(DiskCacheEntry.self, from: data),
+              Date().timeIntervalSince(entry.timestamp) < diskCacheTTL else { return nil }
+        return entry.weather
+    }
+
     // MARK: - Weather Loading
 
     func loadWeather(for location: WeatherLocation) async {
-        // Cache kontrolü - önce bakıyoruz
-        if let cachedWeather = weatherCache[location.id], !cachedWeather.hourly.isEmpty {
-            print("💾 Cache'ten hızlı yükleme: \(location.name)")
-            // Cache'ten hızlıca yükle - UI anında güncellenir
+        // 1. In-memory cache (anında)
+        if let cached = weatherCache[location.id], !cached.hourly.isEmpty {
+            print("💾 Memory cache'ten yükleme: \(location.name)")
             await MainActor.run {
                 selectedLocation = location
-                weatherData = cachedWeather
+                weatherData = cached
                 isLoading = false
             }
             return
         }
-        
-        print("🔄 API'den yükleniyor: \(location.name)")
-        
-        await MainActor.run {
-            isLoading = true
-            errorMessage = nil
-            selectedLocation = location
+
+        // 2. Disk cache — anında göster, arka planda yenile
+        if let diskCached = loadWeatherFromDisk(locationId: location.id) {
+            print("💽 Disk cache'ten anlık gösterim: \(location.name)")
+            await MainActor.run {
+                selectedLocation = location
+                weatherData = diskCached
+                weatherCache[location.id] = diskCached
+                isLoading = false
+            }
+            // API'den sessizce yenile (loading göstermeden)
+        } else {
+            print("🔄 API'den yükleniyor: \(location.name)")
+            await MainActor.run {
+                isLoading = true
+                errorMessage = nil
+                selectedLocation = location
+            }
         }
 
         do {
@@ -63,6 +96,7 @@ final class WeatherViewModel {
             await MainActor.run {
                 weatherData = weather
                 weatherCache[location.id] = weather // Cache'e kaydet
+                saveWeatherToDisk(weather, locationId: location.id) // Disk'e kaydet
                 isLoading = false
                 
                 // Widget'ı güncelle — sadece seçili widget konumu için
