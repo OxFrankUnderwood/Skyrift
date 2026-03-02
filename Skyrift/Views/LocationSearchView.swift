@@ -349,20 +349,26 @@ struct LocationSearchView: View {
     private func performSearch() {
         guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         
+        #if DEBUG
         print("🔍 Arama yapılıyor: \(searchText)")
+        #endif
         isSearching = true
         searchError = nil
 
         Task { @MainActor in
             do {
                 let results = try await service.searchLocations(query: searchText)
+                #if DEBUG
                 print("✅ Arama sonuçları geldi: \(results.count) sonuç")
+                #endif
                 searchResults = results
                 if searchResults.isEmpty {
                     searchError = "search_no_results".localized
                 }
             } catch {
+                #if DEBUG
                 print("❌ Arama hatası: \(error.localizedDescription)")
+                #endif
                 searchError = "search_failed".localized(error.localizedDescription)
             }
             isSearching = false

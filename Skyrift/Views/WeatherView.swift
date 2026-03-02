@@ -76,7 +76,9 @@ struct WeatherView: View {
             locationWeatherView(for: allLocations[0])
         } else {
             // Çoklu konum - paging
+            #if DEBUG
             let _ = print("🔄 ContentView render - Konum sayısı: \(allLocations.count), Mevcut index: \(currentLocationIndex)")
+            #endif
             
             TabView(selection: $currentLocationIndex) {
                 ForEach(Array(allLocations.enumerated()), id: \.element.id) { index, location in
@@ -86,24 +88,30 @@ struct WeatherView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .onChange(of: currentLocationIndex) { oldValue, newValue in
+                #if DEBUG
                 print("📍 Index değişti: \(oldValue) → \(newValue)")
-                
+                #endif
+
                 // Önceki task'ı iptal et
                 indexChangeTask?.cancel()
-                
-                guard oldValue != newValue, 
-                      newValue >= 0, 
-                      newValue < allLocations.count else { 
+
+                guard oldValue != newValue,
+                      newValue >= 0,
+                      newValue < allLocations.count else {
+                    #if DEBUG
                     print("⚠️ Geçersiz index değişimi!")
-                    return 
+                    #endif
+                    return
                 }
-                
+
                 // Debounce: 300ms bekle, ardından yükle
                 let location = allLocations[newValue]
                 indexChangeTask = Task { @MainActor in
                     do {
                         try await Task.sleep(for: .milliseconds(300))
+                        #if DEBUG
                         print("✅ Index sabitlendi, veri yükleniyor: \(newValue)")
+                        #endif
                         if location.isCurrentLocation {
                             await viewModel.selectCurrentLocation(locationManager: locationManager)
                         } else {
@@ -204,12 +212,16 @@ struct WeatherView: View {
                 LazyVStack(alignment: .leading, spacing: 12) {
                     ForEach(Array(weather.daily.prefix(10))) { day in
                         Button {
+                            #if DEBUG
                             print("🔘 Günlük detay tıklandı: \(day.date)")
                             print("📦 weather.hourly sayısı: \(weather.hourly.count)")
+                            #endif
 
                             // Sadece günü seç - sheet kendi verisini alacak
                             selectedDayForecast = day
+                            #if DEBUG
                             print("✅ selectedDayForecast set edildi")
+                            #endif
                         } label: {
                             DailyForecastRow(forecast: day)
                                 .contentShape(Rectangle())

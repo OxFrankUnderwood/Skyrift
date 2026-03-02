@@ -24,17 +24,13 @@ struct DailyDetailView: View {
         self.forecast = forecast
         self.hourlyForecasts = hourlyForecasts
         
-        // DEBUG: Gelen veri
-        print("🔍 DailyDetailView Init")
-        print("📅 Seçilen gün: \(forecast.date)")
-        print("⏰ Toplam hourly veri: \(hourlyForecasts.count)")
-        
         // Filtrelemeyi hemen yap
         let calendar = Calendar.current
         self.filteredHourly = hourlyForecasts.filter { hourly in
             calendar.isDate(hourly.time, inSameDayAs: forecast.date)
         }
         
+        #if DEBUG
         print("✅ Filtrelenen veri: \(self.filteredHourly.count)")
         if self.filteredHourly.isEmpty {
             print("⚠️ UYARI: Filtrelenen veri BOŞ!")
@@ -43,6 +39,7 @@ struct DailyDetailView: View {
                 print("  \(index): \(hourly.time)")
             }
         }
+        #endif
     }
     
     private var dayName: String {
@@ -65,7 +62,9 @@ struct DailyDetailView: View {
     }
     
     var body: some View {
+        #if DEBUG
         let _ = print("🎨 DailyDetailView body render - filteredHourly: \(filteredHourly.count)")
+        #endif
         
         return NavigationStack {
             ScrollView {
@@ -75,14 +74,18 @@ struct DailyDetailView: View {
                     
                     // Grafikler
                     if !filteredHourly.isEmpty {
+                        #if DEBUG
                         let _ = print("✅ Grafikler gösteriliyor")
+                        #endif
                         temperatureChart
                         precipitationChart
                         windChart
                         humidityChart
                         hourlyDetailTable
                     } else if hourlyForecasts.isEmpty {
+                        #if DEBUG
                         let _ = print("⚠️ hourlyForecasts BOŞ - Loading gösteriliyor")
+                        #endif
                         // Veri yükleniyor
                         VStack(spacing: 16) {
                             ProgressView()
@@ -94,7 +97,9 @@ struct DailyDetailView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 60)
                     } else {
+                        #if DEBUG
                         let _ = print("❌ Filtrelenmiş veri BOŞ - Hata mesajı gösteriliyor")
+                        #endif
                         // Saatlik veri yok (bu gün için)
                         VStack(spacing: 16) {
                             Image(systemName: "chart.bar.xaxis")

@@ -58,7 +58,9 @@ struct WidgetDataManager {
         // Widget'ı güncelle
         WidgetCenter.shared.reloadAllTimelines()
         
+        #if DEBUG
         print("✅ Widget verisi kaydedildi: \(cityName) \(Int(temperature))°")
+        #endif
     }
     
     // MARK: - Load Weather Data

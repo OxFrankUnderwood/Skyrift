@@ -38,7 +38,9 @@ struct SkyriftApp: App {
                         .transition(.opacity)
                         .zIndex(2) // En üstte görünsün
                         .onChange(of: showSplash) { oldValue, newValue in
+                            #if DEBUG
                             print("🎬 Splash Screen: \(newValue)")
+                            #endif
                         }
                 } else if !hasCompletedOnboarding {
                     // Onboarding (İlk Açılış Ekranları)
@@ -46,7 +48,9 @@ struct SkyriftApp: App {
                         .transition(.move(edge: .trailing))
                         .zIndex(1)
                         .onChange(of: hasCompletedOnboarding) { oldValue, newValue in
+                            #if DEBUG
                             print("📱 Onboarding Tamamlandı: \(newValue)")
+                            #endif
                         }
                 } else {
                     // Ana Uygulama
@@ -56,14 +60,18 @@ struct SkyriftApp: App {
                         .transition(.opacity)
                         .zIndex(0)
                         .onAppear {
+                            #if DEBUG
                             print("✅ Ana Uygulama Yüklendi")
+                            #endif
                         }
                 }
             }
             .animation(.easeInOut(duration: 0.5), value: showSplash)
             .animation(.easeInOut(duration: 0.5), value: hasCompletedOnboarding)
             .onAppear {
+                #if DEBUG
                 print("🚀 App Başladı - Splash: \(showSplash), Onboarding: \(hasCompletedOnboarding)")
+                #endif
             }
         }
 #if os(macOS)

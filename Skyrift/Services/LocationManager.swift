@@ -70,7 +70,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        #if DEBUG
         print("LocationManager error: \(error.localizedDescription)")
+        #endif
     }
 
     @available(iOS, deprecated: 26.0, message: "Migrate to MKAddress when API stabilizes")
@@ -104,7 +106,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
                     }
                 }
             } catch {
+                #if DEBUG
                 print("Reverse geocode error: \(error.localizedDescription)")
+                #endif
                 await MainActor.run {
                     self.cityName = L10n.currentLocation.localized
                 }

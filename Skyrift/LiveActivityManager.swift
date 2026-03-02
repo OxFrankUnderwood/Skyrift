@@ -28,7 +28,9 @@ final class LiveActivityManager {
     ) {
         // iOS 16.1+ ve Live Activity destekli mi kontrol et
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+            #if DEBUG
             print("⚠️ Live Activities kullanıcı tarafından devre dışı")
+            #endif
             return
         }
         
@@ -52,9 +54,13 @@ final class LiveActivityManager {
             )
             
             currentActivity = activity
+            #if DEBUG
             print("✅ Live Activity başlatıldı: \(cityName)")
+            #endif
         } catch {
+            #if DEBUG
             print("❌ Live Activity başlatılamadı: \(error.localizedDescription)")
+            #endif
         }
     }
     
@@ -66,7 +72,9 @@ final class LiveActivityManager {
         cityName: String
     ) async {
         guard let activity = currentActivity else {
+            #if DEBUG
             print("⚠️ Güncellenecek Live Activity yok")
+            #endif
             return
         }
         
@@ -79,7 +87,9 @@ final class LiveActivityManager {
         )
         
         await activity.update(.init(state: contentState, staleDate: nil))
+        #if DEBUG
         print("✅ Live Activity güncellendi: \(cityName)")
+        #endif
     }
     
     /// Live Activity sonlandır
@@ -91,7 +101,9 @@ final class LiveActivityManager {
         Task {
             await activity.end(nil, dismissalPolicy: .immediate)
             currentActivity = nil
+            #if DEBUG
             print("✅ Live Activity sonlandırıldı")
+            #endif
         }
     }
     

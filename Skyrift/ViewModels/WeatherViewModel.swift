@@ -62,7 +62,9 @@ final class WeatherViewModel {
     func loadWeather(for location: WeatherLocation) async {
         // 1. In-memory cache (anında)
         if let cached = weatherCache[location.id], !cached.hourly.isEmpty {
+            #if DEBUG
             print("💾 Memory cache'ten yükleme: \(location.name)")
+            #endif
             await MainActor.run {
                 selectedLocation = location
                 weatherData = cached
@@ -73,7 +75,9 @@ final class WeatherViewModel {
 
         // 2. Disk cache — anında göster, arka planda yenile
         if let diskCached = loadWeatherFromDisk(locationId: location.id) {
+            #if DEBUG
             print("💽 Disk cache'ten anlık gösterim: \(location.name)")
+            #endif
             await MainActor.run {
                 selectedLocation = location
                 weatherData = diskCached
@@ -82,7 +86,9 @@ final class WeatherViewModel {
             }
             // API'den sessizce yenile (loading göstermeden)
         } else {
+            #if DEBUG
             print("🔄 API'den yükleniyor: \(location.name)")
+            #endif
             await MainActor.run {
                 isLoading = true
                 errorMessage = nil
@@ -96,7 +102,9 @@ final class WeatherViewModel {
                 latitude: location.latitude,
                 longitude: location.longitude
             )
+            #if DEBUG
             print("✅ Veri yüklendi - Günlük: \(weather.daily.count), Saatlik: \(weather.hourly.count)")
+            #endif
             
             await MainActor.run {
                 weatherData = weather
@@ -150,7 +158,9 @@ final class WeatherViewModel {
                 }
             }
         } catch {
+            #if DEBUG
             print("❌ Yükleme hatası: \(error.localizedDescription)")
+            #endif
             await MainActor.run {
                 errorMessage = "weather_load_failed".localized(error.localizedDescription)
                 isLoading = false
@@ -167,7 +177,9 @@ final class WeatherViewModel {
     
     // Dil değiştiğinde cache'i temizleyip yeniden yükle
     func reloadWeather(for location: WeatherLocation) async {
+        #if DEBUG
         print("🌍 Dil değişti - Veri yeniden yükleniyor: \(location.name)")
+        #endif
         // Tüm cache'i temizle (çünkü API yanıtları dile göre değişiyor)
         weatherCache.removeAll()
         await loadWeather(for: location)
