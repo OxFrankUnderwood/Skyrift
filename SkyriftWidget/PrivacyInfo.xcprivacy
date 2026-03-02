@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+    <!-- Kullanıcı takibi yapılmıyor -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+
+    <!-- Takip amaçlı domain yok -->
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+
+    <!-- Widget herhangi bir veri toplamıyor -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+
+    <!-- Kullanılan sistem API'leri ve gerekçeleri -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <!-- UserDefaults (App Group): ana uygulamadan hava durumu verisini okumak -->
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- CA92.1: Uygulamanın kendi yapılandırma ve tercihlerini okumak/yazmak -->
+                <string>CA92.1</string>
+            </array>
+        </dict>
+    </array>
+
+</dict>
+</plist>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+    <!-- Kullanıcı takibi yapılmıyor -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+
+    <!-- Takip amaçlı domain yok -->
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+
+    <!-- Toplanan veriler -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array>
+        <dict>
+            <!-- Hassas konum verisi: hava durumu için kullanılıyor -->
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypePreciseLocation</string>
+            <!-- Kimlikle ilişkilendirilmiyor -->
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <false/>
+            <!-- Takip amaçlı değil -->
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <!-- Uygulama işlevselliği: yerel hava durumu gösterimi -->
+                <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Kullanılan sistem API'leri ve gerekçeleri -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <!-- UserDefaults: ayarlar, dil tercihi, önbellek -->
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- CA92.1: Uygulamanın kendi yapılandırma ve tercihlerini okumak/yazmak -->
+                <string>CA92.1</string>
+            </array>
+        </dict>
+    </array>
+
+</dict>
+</plist>
