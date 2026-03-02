@@ -480,14 +480,12 @@ struct WeatherView: View {
                 .fontWeight(.medium)
                 .foregroundStyle(.white.opacity(0.8))
 
-            if let badge {
-                Text(badge)
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(.white.opacity(0.75))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(.white.opacity(0.15), in: Capsule())
-            }
+            Text(badge ?? " ")
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(.white.opacity(badge != nil ? 0.75 : 0))
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(.white.opacity(badge != nil ? 0.15 : 0), in: Capsule())
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 20)
