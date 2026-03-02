@@ -6,20 +6,30 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WeatherBackgroundView: View {
     let weatherCode: Int
     let isDay: Bool
+    @State private var isActive = false
     
     var body: some View {
         ZStack {
             // Base gradient
             baseGradient
             
-            // Animated weather effects
-            weatherEffect
+            // Animated weather effects - lazy load
+            if isActive {
+                weatherEffect
+            }
         }
-        .ignoresSafeArea()
+        .onAppear {
+            // Animasyonları biraz gecikmeyle başlat
+            Task {
+                try? await Task.sleep(for: .milliseconds(300))
+                isActive = true
+            }
+        }
     }
     
     // MARK: - Base Gradient
@@ -162,10 +172,10 @@ struct CloudsView: View {
                     .foregroundStyle(.white.opacity(0.3))
                     .offset(x: offset + CGFloat(index) * 150 - 200, y: CGFloat(index) * 80)
             }
-        }
-        .onAppear {
-            withAnimation(.linear(duration: 30).repeatForever(autoreverses: false)) {
-                offset = UIScreen.main.bounds.width + 500
+            .onAppear {
+                withAnimation(.linear(duration: 30).repeatForever(autoreverses: false)) {
+                    offset = geometry.size.width + 500
+                }
             }
         }
     }
@@ -177,23 +187,25 @@ struct FogView: View {
     @State private var phase: CGFloat = 0
     
     var body: some View {
-        ZStack {
-            ForEach(0..<3) { layer in
-                Rectangle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.white.opacity(0.1), .white.opacity(0.3), .white.opacity(0.1)],
-                            startPoint: .leading,
-                            endPoint: .trailing
+        GeometryReader { geometry in
+            ZStack {
+                ForEach(0..<3) { layer in
+                    Rectangle()
+                        .fill(
+                            LinearGradient(
+                                colors: [.white.opacity(0.1), .white.opacity(0.3), .white.opacity(0.1)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
-                    .offset(x: phase + CGFloat(layer) * 150)
-                    .blur(radius: 30)
+                        .offset(x: phase + CGFloat(layer) * 150)
+                        .blur(radius: 30)
+                }
             }
-        }
-        .onAppear {
-            withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
-                phase = UIScreen.main.bounds.width
+            .onAppear {
+                withAnimation(.linear(duration: 10).repeatForever(autoreverses: false)) {
+                    phase = geometry.size.width
+                }
             }
         }
     }
@@ -221,24 +233,24 @@ struct RainView: View {
                     .frame(width: 2, height: drop.length)
                     .position(x: drop.x, y: drop.y)
             }
-        }
-        .onReceive(timer) { _ in
-            // Add new drops
-            if drops.count < 100 {
-                let newDrop = RainDrop(
-                    x: CGFloat.random(in: 0...UIScreen.main.bounds.width),
-                    y: -10,
-                    speed: CGFloat.random(in: 10...20),
-                    length: CGFloat.random(in: 15...30)
-                )
-                drops.append(newDrop)
-            }
-            
-            // Update positions
-            drops = drops.compactMap { drop in
-                var newDrop = drop
-                newDrop.y += drop.speed
-                return newDrop.y < UIScreen.main.bounds.height + 50 ? newDrop : nil
+            .onReceive(timer) { _ in
+                // Add new drops
+                if drops.count < 100 {
+                    let newDrop = RainDrop(
+                        x: CGFloat.random(in: 0...geometry.size.width),
+                        y: -10,
+                        speed: CGFloat.random(in: 10...20),
+                        length: CGFloat.random(in: 15...30)
+                    )
+                    drops.append(newDrop)
+                }
+                
+                // Update positions
+                drops = drops.compactMap { drop in
+                    var newDrop = drop
+                    newDrop.y += drop.speed
+                    return newDrop.y < geometry.size.height + 50 ? newDrop : nil
+                }
             }
         }
     }
@@ -267,26 +279,26 @@ struct SnowView: View {
                     .frame(width: flake.size, height: flake.size)
                     .position(x: flake.x + sin(flake.wobble) * 20, y: flake.y)
             }
-        }
-        .onReceive(timer) { _ in
-            // Add new flakes
-            if flakes.count < 80 {
-                let newFlake = Snowflake(
-                    x: CGFloat.random(in: 0...UIScreen.main.bounds.width),
-                    y: -10,
-                    speed: CGFloat.random(in: 2...5),
-                    size: CGFloat.random(in: 4...10),
-                    wobble: 0
-                )
-                flakes.append(newFlake)
-            }
-            
-            // Update positions
-            flakes = flakes.compactMap { flake in
-                var newFlake = flake
-                newFlake.y += flake.speed
-                newFlake.wobble += 0.1
-                return newFlake.y < UIScreen.main.bounds.height + 50 ? newFlake : nil
+            .onReceive(timer) { _ in
+                // Add new flakes
+                if flakes.count < 80 {
+                    let newFlake = Snowflake(
+                        x: CGFloat.random(in: 0...geometry.size.width),
+                        y: -10,
+                        speed: CGFloat.random(in: 2...5),
+                        size: CGFloat.random(in: 4...10),
+                        wobble: 0
+                    )
+                    flakes.append(newFlake)
+                }
+                
+                // Update positions
+                flakes = flakes.compactMap { flake in
+                    var newFlake = flake
+                    newFlake.y += flake.speed
+                    newFlake.wobble += 0.1
+                    return newFlake.y < geometry.size.height + 50 ? newFlake : nil
+                }
             }
         }
     }
@@ -305,7 +317,6 @@ struct ThunderstormView: View {
             Rectangle()
                 .fill(.white)
                 .opacity(lightning ? 0.7 : 0)
-                .ignoresSafeArea()
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 0.1).repeatForever(autoreverses: true).delay(Double.random(in: 2...5))) {

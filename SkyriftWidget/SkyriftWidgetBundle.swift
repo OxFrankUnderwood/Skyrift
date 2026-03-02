@@ -12,7 +12,7 @@ import SwiftUI
 struct SkyriftWidgetBundle: WidgetBundle {
     var body: some Widget {
         SkyriftWidget()
-        SkyriftWidgetControl()
-        SkyriftWidgetLiveActivity()
+        SkyriftInlineWidget()
+        SkyriftWeatherLiveActivity()
     }
 }

@@ -56,6 +56,10 @@
 "appearance" = "Appearance";
 "animated_backgrounds" = "Animated Backgrounds";
 "animated_backgrounds_desc" = "Weather-based animations";
+"theme" = "Theme";
+"appearance_system" = "System";
+"appearance_light" = "Light";
+"appearance_dark" = "Dark";
 "language" = "Language";
 "language_desc" = "App language";
 "about" = "About";
@@ -90,3 +94,81 @@
 "weather_thunderstorm" = "Thunderstorm";
 "weather_thunderstorm_hail" = "Thunderstorm with Hail";
 "weather_cloudy" = "Cloudy";
+"widget_min" = "Min";
+"widget_max" = "Max";
+"widget_hourly_forecast" = "Hourly Forecast";
+"widget_humidity" = "Humidity";
+"widget_wind" = "Wind";
+"widget_pressure" = "Pressure";
+"widget_today" = "Today";
+"widget_inline_desc" = "It's %@, feels like %@";
+// MARK: - Onboarding (NEW)
+"onboarding_title_1" = "Weather Tracking";
+"onboarding_desc_1" = "Get instant access to current weather information";
+"onboarding_title_2" = "Multiple Locations";
+"onboarding_desc_2" = "Add and track as many locations as you want";
+"onboarding_title_3" = "Live Notifications";
+"onboarding_desc_3" = "Always see the weather with Live Activity";
+"onboarding_skip" = "Skip";
+"onboarding_next" = "Next";
+"onboarding_start" = "Get Started";
+
+// MARK: - Splash Screen (NEW)
+"app_name" = "Skyrift";
+"splash_subtitle" = "Weather App";
+
+// MARK: - Notifications
+"notifications_weather_alerts" = "Weather Alerts";
+"notifications_weather_alerts_subtitle" = "Get notified when weather conditions worsen";
+"notification_title" = "Skyrift Weather Alert";
+"notification_body_fog" = "%@ - Fog has been detected in your area";
+"notification_body_rain" = "%@ - Rain is expected in your area";
+"notification_body_heavy_rain" = "%@ - Heavy rain is expected in your area";
+"notification_body_snow" = "%@ - Snow is expected in your area";
+"notification_body_thunderstorm" = "%@ - Thunderstorms are expected in your area";
+"notification_body_freezing" = "%@ - Freezing conditions are expected in your area";
+"widget_location" = "Widget Location";
+"widget_location_auto" = "Automatic";
+
+// MARK: - Insights
+"insights_tab" = "Insights";
+"outfit_title" = "What to Wear?";
+"outfit_no_data" = "Load a location to see suggestions";
+"outfit_heavy_coat" = "Heavy Coat";
+"outfit_coat" = "Coat";
+"outfit_jacket" = "Jacket";
+"outfit_tshirt" = "T-Shirt";
+"outfit_light" = "Light Clothing";
+"outfit_umbrella" = "Umbrella";
+"outfit_boots" = "Waterproof Boots";
+"outfit_sunglasses" = "Sunglasses";
+"outfit_windbreaker" = "Windbreaker";
+"outfit_gloves" = "Gloves";
+"outfit_sunscreen" = "Sunscreen";
+"activity_title" = "What to Do Today?";
+"activity_can_do" = "Recommended";
+"activity_avoid" = "Not ideal";
+"activity_running" = "Running";
+"activity_cycling" = "Cycling";
+"activity_hiking" = "Hiking";
+"activity_skiing" = "Skiing";
+"activity_beach" = "Beach";
+"activity_photography" = "Photography";
+"activity_picnic" = "Picnic";
+"uv_reminder_title" = "UV Index";
+"rain_starting_toggle" = "Rain Starting Alert";
+"notification_body_rain_starting" = "%@ - Rain is starting soon! Don't forget your umbrella ☂️";
+"uv_reminder_toggle" = "High UV Alert";
+"uv_desc_low" = "Low UV today, no sun protection needed";
+"uv_desc_moderate" = "Moderate UV. Take care at midday";
+"uv_desc_high" = "High UV! Apply SPF 30+ sunscreen";
+"uv_desc_very_high" = "Very high UV! Use SPF 50+ and stay in shade";
+"uv_desc_extreme" = "Extreme UV! Avoid sun exposure 10am–4pm";
+"notification_body_uv" = "%@ - UV is high! Don't forget sunscreen (SPF 30+)";
+"daily_summary_title" = "Morning Briefing";
+"daily_summary_toggle" = "Daily Weather Summary";
+"daily_summary_time" = "Notification Time";
+"daily_summary_body" = "%@: %@, High %d° / Low %d°";
+"smart_alerts_title" = "Smart Alerts";
+"sunrise" = "Sunrise";
+"sunset" = "Sunset";

@@ -147,17 +147,11 @@ struct WeatherMapView: View {
             // Zoom kontrolleri
             HStack(spacing: 16) {
                 Button {
-                    // Zoom out
-                    if case .region(let currentRegion) = region {
-                        let newSpan = MKCoordinateSpan(
-                            latitudeDelta: min(currentRegion.span.latitudeDelta * 1.5, 50),
-                            longitudeDelta: min(currentRegion.span.longitudeDelta * 1.5, 50)
-                        )
-                        region = .region(MKCoordinateRegion(
-                            center: currentRegion.center,
-                            span: newSpan
-                        ))
-                    }
+                    // Zoom kontrollerini MapCameraPosition API ile yap
+                    region = .region(MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                        span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+                    ))
                 } label: {
                     Image(systemName: "minus.magnifyingglass")
                         .font(.title3)
@@ -166,7 +160,6 @@ struct WeatherMapView: View {
                 }
                 
                 Button {
-                    // Center on location
                     region = .region(MKCoordinateRegion(
                         center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
                         span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5)
@@ -179,17 +172,10 @@ struct WeatherMapView: View {
                 }
                 
                 Button {
-                    // Zoom in
-                    if case .region(let currentRegion) = region {
-                        let newSpan = MKCoordinateSpan(
-                            latitudeDelta: max(currentRegion.span.latitudeDelta * 0.7, 0.5),
-                            longitudeDelta: max(currentRegion.span.longitudeDelta * 0.7, 0.5)
-                        )
-                        region = .region(MKCoordinateRegion(
-                            center: currentRegion.center,
-                            span: newSpan
-                        ))
-                    }
+                    region = .region(MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
+                        span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+                    ))
                 } label: {
                     Image(systemName: "plus.magnifyingglass")
                         .font(.title3)

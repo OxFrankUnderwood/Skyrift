@@ -4,4 +4,22 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:Resourcestr.lprojLocalizable.strings">
+   </FileRef>
+   <FileRef
+      location = "group:Resourcesen.lprojLocalizable.strings">
+   </FileRef>
+   <FileRef
+      location = "group:tr.lprojLocalizable 2.strings">
+   </FileRef>
+   <FileRef
+      location = "group:en.lprojLocalizable 2.strings">
+   </FileRef>
+   <FileRef
+      location = "group:Localizable-tr.strings">
+   </FileRef>
+   <FileRef
+      location = "group:Localizable-en.strings">
+   </FileRef>
 </Workspace>

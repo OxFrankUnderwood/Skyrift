@@ -1,0 +1,167 @@
+/* Skyrift - Español */
+
+"close" = "Cerrar";
+"retry" = "Reintentar";
+"loading" = "Cargando...";
+
+"weather_tab" = "Clima";
+"locations_tab" = "Ubicaciones";
+"settings_tab" = "Ajustes";
+
+"loading_weather" = "Cargando clima...";
+"select_location" = "Selecciona una ubicación";
+"use_my_location" = "Usar mi ubicación";
+
+"feels_like" = "Sensación térmica";
+"humidity" = "Humedad";
+"wind" = "Viento";
+"uv_index" = "Índice UV";
+"visibility" = "Visibilidad";
+"pressure" = "Presión";
+"cloudiness" = "Nubosidad";
+"air_quality" = "Calidad del aire";
+
+"uv_low" = "Bajo";
+"uv_moderate" = "Moderado";
+"uv_high" = "Alto";
+"uv_very_high" = "Muy alto";
+"uv_extreme" = "Extremo";
+
+"visibility_very_poor" = "Muy mala";
+"visibility_poor" = "Mala";
+"visibility_moderate" = "Moderada";
+"visibility_good" = "Buena";
+
+"pressure_low" = "Baja";
+"pressure_normal" = "Normal";
+"pressure_high" = "Alta";
+
+"clouds_few" = "Pocas nubes";
+"clouds_scattered" = "Nubes dispersas";
+"clouds_broken" = "Nubes rotas";
+"clouds_overcast" = "Nublado";
+
+"locations_title" = "Ubicaciones";
+"use_current_location" = "Usar ubicación actual";
+"saved_locations" = "Ubicaciones guardadas";
+"popular_cities" = "Ciudades populares";
+"search_placeholder" = "Buscar ciudad o país...";
+"no_results" = "No se encontraron resultados";
+"search_results" = "Resultados de búsqueda";
+
+"settings" = "Ajustes";
+"units" = "Unidades";
+"temperature_unit" = "Unidad de temperatura";
+"temperature_unit_desc" = "Cómo mostrar las temperaturas";
+"appearance" = "Apariencia";
+"animated_backgrounds" = "Fondos animados";
+"animated_backgrounds_desc" = "Animaciones basadas en el clima";
+"language" = "Idioma";
+"language_desc" = "Idioma de la aplicación";
+"about" = "Acerca de";
+"version" = "Versión";
+"system_default" = "Predeterminado del sistema";
+"language_change_instant" = "Los cambios de idioma se aplican instantáneamente";
+
+"loading_hourly" = "Cargando datos por hora...";
+"no_hourly_data" = "No hay datos por hora disponibles para este día";
+"temperature_change" = "Cambio de temperatura";
+"precipitation_probability" = "Probabilidad de precipitación";
+"wind_speed" = "Velocidad del viento";
+"humidity_level" = "Nivel de humedad";
+"hourly_detail" = "Detalle por hora";
+"hour" = "Hora";
+"temperature" = "Temperatura";
+"precipitation" = "Precipitación";
+
+"weather_clear" = "Despejado";
+"weather_mostly_clear" = "Mayormente despejado";
+"weather_partly_cloudy" = "Parcialmente nublado";
+"weather_overcast" = "Nublado";
+"weather_foggy" = "Neblina";
+"weather_drizzle" = "Llovizna";
+"weather_freezing_drizzle" = "Llovizna helada";
+"weather_rainy" = "Lluvioso";
+"weather_freezing_rain" = "Lluvia helada";
+"weather_snowy" = "Nevado";
+"weather_snow_grains" = "Granizo de nieve";
+"weather_rain_showers" = "Chubascos";
+"weather_snow_showers" = "Chubascos de nieve";
+"weather_thunderstorm" = "Tormenta";
+"weather_thunderstorm_hail" = "Tormenta con granizo";
+"weather_cloudy" = "Nublado";
+
+"air_quality_good" = "Bueno";
+"air_quality_moderate" = "Moderado";
+"air_quality_poor" = "Malo";
+"air_quality_very_poor" = "Muy malo";
+"air_quality_unknown" = "Desconocido";
+"theme" = "Tema";
+"appearance_system" = "Sistema";
+"appearance_light" = "Claro";
+"appearance_dark" = "Oscuro";
+/* Widget Translations */
+"widget_min" = "Mín";
+"widget_max" = "Máx";
+"widget_hourly_forecast" = "Pronóstico por hora";
+"widget_humidity" = "Humedad";
+"widget_wind" = "Viento";
+"widget_pressure" = "Presión";
+"widget_today" = "Hoy";
+"widget_inline_desc" = "%@, sensación térmica %@";
+
+// MARK: - Notificaciones
+"notifications_weather_alerts" = "Alertas del Tiempo";
+"notifications_weather_alerts_subtitle" = "Recibe notificaciones cuando empeoren las condiciones meteorológicas";
+"notification_title" = "Alerta Meteorológica de Skyrift";
+"notification_body_fog" = "%@ - Se ha detectado niebla en tu área";
+"notification_body_rain" = "%@ - Se espera lluvia en tu área";
+"notification_body_heavy_rain" = "%@ - Se esperan lluvias intensas en tu área";
+"notification_body_snow" = "%@ - Se espera nieve en tu área";
+"notification_body_thunderstorm" = "%@ - Se esperan tormentas en tu área";
+"notification_body_freezing" = "%@ - Se esperan condiciones de hielo en tu área";
+"widget_location" = "Ubicación del widget";
+"widget_location_auto" = "Automático";
+
+// MARK: - Consejos
+"insights_tab" = "Consejos";
+"outfit_title" = "¿Qué ponerme?";
+"outfit_no_data" = "Carga una ubicación para ver sugerencias";
+"outfit_heavy_coat" = "Abrigo grueso";
+"outfit_coat" = "Abrigo";
+"outfit_jacket" = "Chaqueta";
+"outfit_tshirt" = "Camiseta";
+"outfit_light" = "Ropa ligera";
+"outfit_umbrella" = "Paraguas";
+"outfit_boots" = "Botas impermeables";
+"outfit_sunglasses" = "Gafas de sol";
+"outfit_windbreaker" = "Cortavientos";
+"outfit_gloves" = "Guantes";
+"outfit_sunscreen" = "Protector solar";
+"activity_title" = "¿Qué hacer hoy?";
+"activity_can_do" = "Recomendado";
+"activity_avoid" = "No ideal";
+"activity_running" = "Correr";
+"activity_cycling" = "Ciclismo";
+"activity_hiking" = "Senderismo";
+"activity_skiing" = "Esquí";
+"activity_beach" = "Playa";
+"activity_photography" = "Fotografía";
+"activity_picnic" = "Picnic";
+"uv_reminder_title" = "Índice UV";
+"rain_starting_toggle" = "Alerta de lluvia próxima";
+"notification_body_rain_starting" = "%@ - ¡La lluvia está por comenzar! No olvides el paraguas ☂️";
+"uv_reminder_toggle" = "Alerta UV alto";
+"uv_desc_low" = "UV bajo hoy, sin necesidad de protección";
+"uv_desc_moderate" = "UV moderado. Ten cuidado al mediodía";
+"uv_desc_high" = "¡UV alto! Aplica protector solar SPF 30+";
+"uv_desc_very_high" = "¡UV muy alto! Usa SPF 50+ y quédate a la sombra";
+"uv_desc_extreme" = "¡UV extremo! Evita el sol de 10am a 4pm";
+"notification_body_uv" = "%@ - ¡UV alto! No olvides el protector solar (SPF 30+)";
+"daily_summary_title" = "Resumen matutino";
+"daily_summary_toggle" = "Resumen del tiempo diario";
+"daily_summary_time" = "Hora de notificación";
+"daily_summary_body" = "%@: %@, Máx %d° / Mín %d°";
+"smart_alerts_title" = "Alertas inteligentes";
+"sunrise" = "Amanecer";
+"sunset" = "Atardecer";

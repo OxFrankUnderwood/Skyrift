@@ -2,9 +2,12 @@
 //  LocationManager.swift
 //  Skyrift
 //
+//  iOS 26+ compatible - Uses MapKit for reverse geocoding instead of CLGeocoder
+//
 
 import CoreLocation
 import Observation
+import MapKit
 
 @Observable
 final class LocationManager: NSObject, CLLocationManagerDelegate {
@@ -14,7 +17,6 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     var authorizationStatus: CLAuthorizationStatus = .notDetermined
 
     private let manager = CLLocationManager()
-    private let geocoder = CLGeocoder()
 
     override init() {
         super.init()
@@ -67,10 +69,34 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     private func reverseGeocode(location: CLLocation) {
-        geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, _ in
-            guard let self else { return }
-            if let placemark = placemarks?.first {
-                self.cityName = placemark.locality ?? placemark.administrativeArea ?? "Bilinmeyen Konum"
+        // iOS 26+ MapKit kullanımı
+        Task {
+            let searchRequest = MKLocalSearch.Request()
+            searchRequest.naturalLanguageQuery = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+            searchRequest.resultTypes = .address
+            searchRequest.region = MKCoordinateRegion(
+                center: location.coordinate,
+                latitudinalMeters: 1000,
+                longitudinalMeters: 1000
+            )
+            
+            let search = MKLocalSearch(request: searchRequest)
+            
+            do {
+                let response = try await search.start()
+                if let mapItem = response.mapItems.first {
+                    await MainActor.run {
+                        self.cityName = mapItem.placemark.locality 
+                            ?? mapItem.placemark.administrativeArea 
+                            ?? mapItem.name
+                            ?? "Bilinmeyen Konum"
+                    }
+                }
+            } catch {
+                print("Reverse geocode error: \(error.localizedDescription)")
+                await MainActor.run {
+                    self.cityName = "Mevcut Konum"
+                }
             }
         }
     }

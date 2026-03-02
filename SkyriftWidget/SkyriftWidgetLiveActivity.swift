@@ -2,79 +2,182 @@
 //  SkyriftWidgetLiveActivity.swift
 //  SkyriftWidget
 //
-//  Created by Emre on 26.02.2026.
+//  Live Activity for weather updates
 //
 
 import ActivityKit
 import WidgetKit
 import SwiftUI
 
-struct SkyriftWidgetAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
-        var emoji: String
-    }
+// MARK: - Live Activity Widget
+// Note: WeatherActivityAttributes is now in a shared file
 
-    // Fixed non-changing properties about your activity go here!
-    var name: String
-}
-
-struct SkyriftWidgetLiveActivity: Widget {
+struct SkyriftWeatherLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: SkyriftWidgetAttributes.self) { context in
-            // Lock screen/banner UI goes here
-            VStack {
-                Text("Hello \(context.state.emoji)")
-            }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
-
+        ActivityConfiguration(for: WeatherActivityAttributes.self) { context in
+            // Lock Screen / Banner görünümü
+            lockScreenView(context: context)
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
+                // Expanded - Tam açılmış görünüm
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    HStack(spacing: 8) {
+                        Image(systemName: weatherIcon(for: context.state.weatherCode, isDay: context.state.isDay))
+                            .font(.title2)
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.white)
+                        
+                        Text("\(Int(context.state.temperature.rounded()))°")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    }
                 }
+                
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text(context.state.cityName)
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                        
+                        Text(weatherDescription(for: context.state.weatherCode))
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
-                    // more content
+                    HStack {
+                        Image(systemName: "location.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                        
+                        Text(context.state.cityName)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        
+                        Spacer()
+                        
+                        Text(timeString(from: context.state.lastUpdate))
+                            .font(.caption2)
+                            .foregroundStyle(.tertiary)
+                    }
+                    .padding(.top, 8)
                 }
+                
             } compactLeading: {
-                Text("L")
+                // Compact Leading - Sol taraf
+                Image(systemName: weatherIcon(for: context.state.weatherCode, isDay: context.state.isDay))
+                    .symbolRenderingMode(.hierarchical)
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                // Compact Trailing - Sağ taraf
+                Text("\(Int(context.state.temperature.rounded()))°")
+                    .font(.caption)
+                    .fontWeight(.semibold)
             } minimal: {
-                Text(context.state.emoji)
+                // Minimal - En küçük görünüm
+                Image(systemName: weatherIcon(for: context.state.weatherCode, isDay: context.state.isDay))
+                    .symbolRenderingMode(.hierarchical)
             }
-            .widgetURL(URL(string: "http://www.apple.com"))
-            .keylineTint(Color.red)
+            .keylineTint(.cyan)
         }
     }
-}
-
-extension SkyriftWidgetAttributes {
-    fileprivate static var preview: SkyriftWidgetAttributes {
-        SkyriftWidgetAttributes(name: "World")
+    
+    // MARK: - Lock Screen View
+    
+    @ViewBuilder
+    private func lockScreenView(context: ActivityViewContext<WeatherActivityAttributes>) -> some View {
+        HStack(spacing: 16) {
+            // Sol - İkon ve sıcaklık
+            HStack(spacing: 12) {
+                Image(systemName: weatherIcon(for: context.state.weatherCode, isDay: context.state.isDay))
+                    .font(.system(size: 32))
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.cyan)
+                
+                Text("\(Int(context.state.temperature.rounded()))°")
+                    .font(.system(size: 36, weight: .thin, design: .rounded))
+            }
+            
+            Spacer()
+            
+            // Sağ - Detaylar
+            VStack(alignment: .trailing, spacing: 4) {
+                Text(context.state.cityName)
+                    .font(.headline)
+                
+                Text(weatherDescription(for: context.state.weatherCode))
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                
+                Text(timeString(from: context.state.lastUpdate))
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+        }
+        .padding()
+        .activityBackgroundTint(Color.cyan.opacity(0.2))
+        .activitySystemActionForegroundColor(.cyan)
+    }
+    
+    // MARK: - Helper Functions
+    
+    private func weatherIcon(for code: Int, isDay: Bool) -> String {
+        switch code {
+        case 0, 1: return isDay ? "sun.max.fill" : "moon.fill"
+        case 2: return isDay ? "cloud.sun.fill" : "cloud.moon.fill"
+        case 3: return "cloud.fill"
+        case 45, 48: return "cloud.fog.fill"
+        case 51...57: return "cloud.drizzle.fill"
+        case 61...67: return "cloud.rain.fill"
+        case 71...86: return "cloud.snow.fill"
+        case 95...99: return "cloud.bolt.fill"
+        default: return "cloud.fill"
+        }
+    }
+    
+    private func weatherDescription(for code: Int) -> String {
+        // Widget Extension için lokalize edilmiş metin
+        let key: String
+        switch code {
+        case 0, 1: key = "weather_clear"
+        case 2: key = "weather_partly_cloudy"
+        case 3: key = "weather_overcast"
+        case 45, 48: key = "weather_foggy"
+        case 51...57: key = "weather_drizzle"
+        case 61...67: key = "weather_rainy"
+        case 71...86: key = "weather_snowy"
+        case 95...99: key = "weather_thunderstorm"
+        default: key = "weather_cloudy"
+        }
+        
+        return NSLocalizedString(key, comment: "")
+    }
+    
+    private func timeString(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
     }
 }
 
-extension SkyriftWidgetAttributes.ContentState {
-    fileprivate static var smiley: SkyriftWidgetAttributes.ContentState {
-        SkyriftWidgetAttributes.ContentState(emoji: "😀")
-     }
-     
-     fileprivate static var starEyes: SkyriftWidgetAttributes.ContentState {
-         SkyriftWidgetAttributes.ContentState(emoji: "🤩")
-     }
-}
+// MARK: - Preview
 
-#Preview("Notification", as: .content, using: SkyriftWidgetAttributes.preview) {
-   SkyriftWidgetLiveActivity()
+#Preview("Notification", as: .content, using: WeatherActivityAttributes(locationId: "test")) {
+    SkyriftWeatherLiveActivity()
 } contentStates: {
-    SkyriftWidgetAttributes.ContentState.smiley
-    SkyriftWidgetAttributes.ContentState.starEyes
+    WeatherActivityAttributes.ContentState(
+        temperature: 22,
+        weatherCode: 0,
+        isDay: true,
+        cityName: "İstanbul",
+        lastUpdate: Date()
+    )
+    
+    WeatherActivityAttributes.ContentState(
+        temperature: 15,
+        weatherCode: 61,
+        isDay: false,
+        cityName: "Ankara",
+        lastUpdate: Date()
+    )
 }

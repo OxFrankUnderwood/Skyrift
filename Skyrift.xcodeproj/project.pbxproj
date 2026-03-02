@@ -6,14 +6,86 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CEE7D4192F4F9C0C0074613E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D4182F4F9C0C0074613E /* WidgetKit.framework */; };
+		CEE7D41B2F4F9C0C0074613E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7D41A2F4F9C0C0074613E /* SwiftUI.framework */; };
+		CEE7D42A2F4F9C0D0074613E /* SkyriftWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CEE7D4162F4F9C0C0074613E /* SkyriftWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CEE7D4282F4F9C0D0074613E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECAB9002F4A57EB008B41F2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEE7D4152F4F9C0C0074613E;
+			remoteInfo = SkyriftWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CEE7D42F2F4F9C0D0074613E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CEE7D42A2F4F9C0D0074613E /* SkyriftWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CECAB9082F4A57EB008B41F2 /* Skyrift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skyrift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE7D4162F4F9C0C0074613E /* SkyriftWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SkyriftWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE7D4182F4F9C0C0074613E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CEE7D41A2F4F9C0C0074613E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CEE7D4302F4F9C530074613E /* SkyriftWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SkyriftWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CEE7D3822F4E3D630074613E /* Exceptions for "Skyrift" folder in "Skyrift" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CECAB9072F4A57EB008B41F2 /* Skyrift */;
+		};
+		CEE7D42E2F4F9C0D0074613E /* Exceptions for "SkyriftWidget" folder in "SkyriftWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CEE7D4152F4F9C0C0074613E /* SkyriftWidgetExtension */;
+		};
+		CEE7D4862F4F9E3F0074613E /* Exceptions for "Skyrift" folder in "SkyriftWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Resources/Localizable.strings",
+				WeatherActivityAttributes.swift,
+				WidgetDataManager.swift,
+			);
+			target = CEE7D4152F4F9C0C0074613E /* SkyriftWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CECAB90A2F4A57EB008B41F2 /* Skyrift */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CEE7D3822F4E3D630074613E /* Exceptions for "Skyrift" folder in "Skyrift" target */,
+				CEE7D4862F4F9E3F0074613E /* Exceptions for "Skyrift" folder in "SkyriftWidgetExtension" target */,
+			);
 			path = Skyrift;
+			sourceTree = "<group>";
+		};
+		CEE7D41C2F4F9C0C0074613E /* SkyriftWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CEE7D42E2F4F9C0D0074613E /* Exceptions for "SkyriftWidget" folder in "SkyriftWidgetExtension" target */,
+			);
+			path = SkyriftWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,13 +98,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEE7D4132F4F9C0C0074613E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEE7D41B2F4F9C0C0074613E /* SwiftUI.framework in Frameworks */,
+				CEE7D4192F4F9C0C0074613E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		CECAB8FF2F4A57EB008B41F2 = {
 			isa = PBXGroup;
 			children = (
+				CEE7D4302F4F9C530074613E /* SkyriftWidgetExtension.entitlements */,
 				CECAB90A2F4A57EB008B41F2 /* Skyrift */,
+				CEE7D41C2F4F9C0C0074613E /* SkyriftWidget */,
+				CEE7D4172F4F9C0C0074613E /* Frameworks */,
 				CECAB9092F4A57EB008B41F2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +125,18 @@
 			isa = PBXGroup;
 			children = (
 				CECAB9082F4A57EB008B41F2 /* Skyrift.app */,
+				CEE7D4162F4F9C0C0074613E /* SkyriftWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CEE7D4172F4F9C0C0074613E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEE7D4182F4F9C0C0074613E /* WidgetKit.framework */,
+				CEE7D41A2F4F9C0C0074613E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +149,12 @@
 				CECAB9042F4A57EB008B41F2 /* Sources */,
 				CECAB9052F4A57EB008B41F2 /* Frameworks */,
 				CECAB9062F4A57EB008B41F2 /* Resources */,
+				CEE7D42F2F4F9C0D0074613E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CEE7D4292F4F9C0D0074613E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CECAB90A2F4A57EB008B41F2 /* Skyrift */,
@@ -69,6 +165,28 @@
 			productName = Skyrift;
 			productReference = CECAB9082F4A57EB008B41F2 /* Skyrift.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CEE7D4152F4F9C0C0074613E /* SkyriftWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEE7D42B2F4F9C0D0074613E /* Build configuration list for PBXNativeTarget "SkyriftWidgetExtension" */;
+			buildPhases = (
+				CEE7D4122F4F9C0C0074613E /* Sources */,
+				CEE7D4132F4F9C0C0074613E /* Frameworks */,
+				CEE7D4142F4F9C0C0074613E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CEE7D41C2F4F9C0C0074613E /* SkyriftWidget */,
+			);
+			name = SkyriftWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = SkyriftWidgetExtension;
+			productReference = CEE7D4162F4F9C0C0074613E /* SkyriftWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +201,9 @@
 					CECAB9072F4A57EB008B41F2 = {
 						CreatedOnToolsVersion = 26.2;
 					};
+					CEE7D4152F4F9C0C0074613E = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = CECAB9032F4A57EB008B41F2 /* Build configuration list for PBXProject "Skyrift" */;
@@ -90,7 +211,13 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				es,
+				fr,
+				de,
+				it,
+				ru,
+				tr,
+				"pt-PT",
 			);
 			mainGroup = CECAB8FF2F4A57EB008B41F2;
 			minimizedProjectReferenceProxies = 1;
@@ -100,12 +227,20 @@
 			projectRoot = "";
 			targets = (
 				CECAB9072F4A57EB008B41F2 /* Skyrift */,
+				CEE7D4152F4F9C0C0074613E /* SkyriftWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CECAB9062F4A57EB008B41F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEE7D4142F4F9C0C0074613E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +257,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEE7D4122F4F9C0C0074613E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CEE7D4292F4F9C0D0074613E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEE7D4152F4F9C0C0074613E /* SkyriftWidgetExtension */;
+			targetProxy = CEE7D4282F4F9C0D0074613E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CECAB9112F4A57EC008B41F2 /* Debug */ = {
@@ -255,7 +405,12 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Skyrift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Skyrift;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hava durumunuzu gösterebilmek için konumunuza erişim gereklidir.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -264,8 +419,9 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -276,13 +432,14 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.2;
 			};
 			name = Debug;
@@ -301,7 +458,12 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Skyrift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Skyrift;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hava durumunuzu gösterebilmek için konumunuza erişim gereklidir.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -310,8 +472,9 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -322,14 +485,90 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		CEE7D42C2F4F9C0D0074613E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SkyriftWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53RP7GR7HR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkyriftWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SkyriftWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyrift.Skyrift.SkyriftWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CEE7D42D2F4F9C0D0074613E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SkyriftWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53RP7GR7HR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkyriftWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SkyriftWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyrift.Skyrift.SkyriftWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -350,6 +589,15 @@
 			buildConfigurations = (
 				CECAB9142F4A57EC008B41F2 /* Debug */,
 				CECAB9152F4A57EC008B41F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEE7D42B2F4F9C0D0074613E /* Build configuration list for PBXNativeTarget "SkyriftWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEE7D42C2F4F9C0D0074613E /* Debug */,
+				CEE7D42D2F4F9C0D0074613E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

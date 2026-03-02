@@ -64,13 +64,13 @@ struct WeatherService {
     ) -> WeatherData {
         let currentWeather = buildCurrentWeather(current)
 
-        let dailyForecasts = Array(daily.prefix(7).map { buildDailyForecast($0) })
+        let dailyForecasts = Array(daily.prefix(10).map { buildDailyForecast($0) })
 
         let now = Date()
         let hourlyForecasts = Array(
             hourly
                 .filter { $0.date >= now }
-                .prefix(48)
+                .prefix(168) // 7 gün × 24 saat
                 .map { buildHourlyForecast($0) }
         )
 
@@ -78,7 +78,7 @@ struct WeatherService {
             current: currentWeather,
             daily: dailyForecasts,
             hourly: hourlyForecasts,
-            airQuality: nil
+            airQuality: nil // WeatherKit bu sürümde hava kalitesi sağlamıyor
         )
     }
 
@@ -87,7 +87,8 @@ struct WeatherService {
             temperature: wk.temperature.converted(to: .celsius).value,
             apparentTemperature: wk.apparentTemperature.converted(to: .celsius).value,
             humidity: Int((wk.humidity * 100).rounded()),
-            windSpeed: wk.wind.speed.converted(to: .metersPerSecond).value,
+            windSpeed: wk.wind.speed.converted(to: .kilometersPerHour).value,
+            windDirection: Int(wk.wind.direction.converted(to: .degrees).value.rounded()),
             weatherCode: mapCondition(wk.condition),
             isDay: wk.isDaylight ? 1 : 0,
             uvIndex: Double(wk.uvIndex.value),

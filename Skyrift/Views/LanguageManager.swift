@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import WidgetKit
 
 @Observable
 final class LanguageManager {
@@ -14,68 +15,89 @@ final class LanguageManager {
     
     var currentLanguage: AppLanguage {
         didSet {
-            saveLanguage()
-            updateAppLanguage()
+            if oldValue != currentLanguage {
+                saveLanguage()
+                updateAppLanguage()
+                // Anında yenile
+                NotificationCenter.default.post(name: .languageChanged, object: nil)
+            }
         }
     }
     
+    var currentLocale: Locale {
+        return Locale(identifier: currentLanguage.code)
+    }
+    
+    // Bundle override için
+    var currentBundle: Bundle {
+        if let path = Bundle.main.path(forResource: currentLanguage.code, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            return bundle
+        }
+        
+        return Bundle.main
+    }
+    
     private init() {
-        // Load saved language or use system default
+        // Load saved language or use English as default
         if let savedCode = UserDefaults.standard.string(forKey: "AppLanguage"),
            let savedLanguage = AppLanguage(rawValue: savedCode) {
             self.currentLanguage = savedLanguage
         } else {
-            self.currentLanguage = .system
+            self.currentLanguage = .english // Default: English
+        }
+        
+        // Widget için App Group'a da kaydet
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.skyrift.weather") {
+            sharedDefaults.set(currentLanguage.code, forKey: "selectedLanguage")
+            sharedDefaults.synchronize()
         }
     }
     
     private func saveLanguage() {
         UserDefaults.standard.set(currentLanguage.rawValue, forKey: "AppLanguage")
+        
+        // Widget için App Group'a kaydet
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.skyrift.weather") {
+            sharedDefaults.set(currentLanguage.code, forKey: "selectedLanguage")
+            sharedDefaults.synchronize()
+            
+            // Widget'ları reload et
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     
     private func updateAppLanguage() {
-        // Update the app's language
-        if currentLanguage == .system {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-        } else {
-            UserDefaults.standard.set([currentLanguage.code], forKey: "AppleLanguages")
-        }
+        // Locale'i güncelle
+        UserDefaults.standard.set([currentLanguage.code], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
     }
+}
+
+// Notification extension
+extension Notification.Name {
+    static let languageChanged = Notification.Name("languageChanged")
 }
 
 // MARK: - AppLanguage
 
 enum AppLanguage: String, CaseIterable, Identifiable {
-    case system
     case english = "en"
     case turkish = "tr"
     case spanish = "es"
     case french = "fr"
     case german = "de"
     case italian = "it"
-    case portuguese = "pt"
     case russian = "ru"
-    case japanese = "ja"
-    case korean = "ko"
-    case chinese = "zh"
-    case arabic = "ar"
     
     var id: String { rawValue }
     
     var code: String {
-        switch self {
-        case .system:
-            return Locale.preferredLanguages.first ?? "en"
-        default:
-            return rawValue
-        }
+        return rawValue
     }
     
     var displayName: String {
         switch self {
-        case .system:
-            return "system_default".localized
         case .english:
             return "English"
         case .turkish:
@@ -88,25 +110,13 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             return "Deutsch"
         case .italian:
             return "Italiano"
-        case .portuguese:
-            return "Português"
         case .russian:
             return "Русский"
-        case .japanese:
-            return "日本語"
-        case .korean:
-            return "한국어"
-        case .chinese:
-            return "中文"
-        case .arabic:
-            return "العربية"
         }
     }
     
     var flag: String {
         switch self {
-        case .system:
-            return "🌍"
         case .english:
             return "🇺🇸"
         case .turkish:
@@ -119,18 +129,8 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             return "🇩🇪"
         case .italian:
             return "🇮🇹"
-        case .portuguese:
-            return "🇵🇹"
         case .russian:
             return "🇷🇺"
-        case .japanese:
-            return "🇯🇵"
-        case .korean:
-            return "🇰🇷"
-        case .chinese:
-            return "🇨🇳"
-        case .arabic:
-            return "🇸🇦"
         }
     }
 }

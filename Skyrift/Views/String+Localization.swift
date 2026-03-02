@@ -8,11 +8,13 @@ import Foundation
 extension String {
     /// Localize a string key
     var localized: String {
-        NSLocalizedString(self, comment: "")
+        let bundle = LanguageManager.shared.currentBundle
+        return NSLocalizedString(self, bundle: bundle, comment: "")
     }
     
     /// Localize a string key with arguments
     func localized(_ arguments: CVarArg...) -> String {
-        String(format: NSLocalizedString(self, comment: ""), arguments: arguments)
+        let bundle = LanguageManager.shared.currentBundle
+        return String(format: NSLocalizedString(self, bundle: bundle, comment: ""), arguments: arguments)
     }
 }
