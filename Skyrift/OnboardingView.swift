@@ -29,6 +29,18 @@ struct OnboardingView: View {
             title: L10n.onboardingTitle3.localized,
             description: L10n.onboardingDesc3.localized,
             color: .orange
+        ),
+        OnboardingPage(
+            icon: "sparkles",
+            title: L10n.onboardingTitle4.localized,
+            description: L10n.onboardingDesc4.localized,
+            color: .purple
+        ),
+        OnboardingPage(
+            icon: "apps.iphone",
+            title: L10n.onboardingTitle5.localized,
+            description: L10n.onboardingDesc5.localized,
+            color: .teal
         )
     ]
     

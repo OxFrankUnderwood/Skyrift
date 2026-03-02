@@ -164,3 +164,16 @@
 "smart_alerts_title" = "Smarte Warnungen";
 "sunrise" = "Sonnenaufgang";
 "sunset" = "Sonnenuntergang";
+"onboarding_title_1" = "Wetter-Tracking";
+"onboarding_desc_1" = "Erhalten Sie sofortigen Zugriff auf aktuelle Wetterinformationen";
+"onboarding_title_2" = "Mehrere Orte";
+"onboarding_desc_2" = "Fügen Sie beliebig viele Orte hinzu und verfolgen Sie diese";
+"onboarding_title_3" = "Live-Benachrichtigungen";
+"onboarding_desc_3" = "Sehen Sie das Wetter jederzeit mit Live Activity";
+"onboarding_title_4" = "Smarte Empfehlungen";
+"onboarding_desc_4" = "Erhalten Sie personalisierte Outfit- und Aktivitätsempfehlungen basierend auf dem Wetter";
+"onboarding_title_5" = "Startbildschirm-Widget";
+"onboarding_desc_5" = "Fügen Sie Skyrift als Widget zu Ihrem Startbildschirm hinzu";
+"onboarding_skip" = "Überspringen";
+"onboarding_next" = "Weiter";
+"onboarding_start" = "Loslegen";

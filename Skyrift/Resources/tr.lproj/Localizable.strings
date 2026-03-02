@@ -114,6 +114,10 @@
 "onboarding_desc_2" = "İstediğiniz kadar konum ekleyin ve takip edin";
 "onboarding_title_3" = "Canlı Bildirimler";
 "onboarding_desc_3" = "Live Activity ile hava durumunu her zaman görün";
+"onboarding_title_4" = "Akıllı Öneriler";
+"onboarding_desc_4" = "Hava durumuna göre kıyafet ve aktivite önerileri alın";
+"onboarding_title_5" = "Ana Ekran Widget'ı";
+"onboarding_desc_5" = "Hızlı hava durumu için Skyrift'i ana ekranınıza widget olarak ekleyin";
 "onboarding_skip" = "Atla";
 "onboarding_next" = "İleri";
 "onboarding_start" = "Başlayalım";

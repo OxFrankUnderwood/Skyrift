@@ -109,6 +109,10 @@
 "onboarding_desc_2" = "Add and track as many locations as you want";
 "onboarding_title_3" = "Live Notifications";
 "onboarding_desc_3" = "Always see the weather with Live Activity";
+"onboarding_title_4" = "Smart Insights";
+"onboarding_desc_4" = "Get personalized outfit and activity suggestions based on current weather";
+"onboarding_title_5" = "Home Screen Widget";
+"onboarding_desc_5" = "Add Skyrift to your home screen for instant weather at a glance";
 "onboarding_skip" = "Skip";
 "onboarding_next" = "Next";
 "onboarding_start" = "Get Started";

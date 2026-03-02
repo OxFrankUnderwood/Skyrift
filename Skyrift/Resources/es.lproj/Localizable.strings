@@ -165,3 +165,16 @@
 "smart_alerts_title" = "Alertas inteligentes";
 "sunrise" = "Amanecer";
 "sunset" = "Atardecer";
+"onboarding_title_1" = "Seguimiento del clima";
+"onboarding_desc_1" = "Accede instantáneamente a la información meteorológica actual";
+"onboarding_title_2" = "Varios lugares";
+"onboarding_desc_2" = "Añade y sigue tantos lugares como quieras";
+"onboarding_title_3" = "Notificaciones en vivo";
+"onboarding_desc_3" = "Ve siempre el clima con Live Activity";
+"onboarding_title_4" = "Recomendaciones";
+"onboarding_desc_4" = "Obtén sugerencias personalizadas de ropa y actividades según el clima";
+"onboarding_title_5" = "Widget en pantalla de inicio";
+"onboarding_desc_5" = "Agrega Skyrift como widget a tu pantalla de inicio para ver el clima al instante";
+"onboarding_skip" = "Omitir";
+"onboarding_next" = "Siguiente";
+"onboarding_start" = "Comenzar";

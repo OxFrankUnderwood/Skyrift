@@ -165,3 +165,16 @@
 "smart_alerts_title" = "Умные уведомления";
 "sunrise" = "Восход";
 "sunset" = "Закат";
+"onboarding_title_1" = "Отслеживание погоды";
+"onboarding_desc_1" = "Получайте мгновенный доступ к актуальной информации о погоде";
+"onboarding_title_2" = "Несколько локаций";
+"onboarding_desc_2" = "Добавляйте и отслеживайте столько мест, сколько хотите";
+"onboarding_title_3" = "Живые уведомления";
+"onboarding_desc_3" = "Всегда видьте погоду с Live Activity";
+"onboarding_title_4" = "Умные советы";
+"onboarding_desc_4" = "Получайте персонализированные рекомендации по одежде и активностям";
+"onboarding_title_5" = "Виджет на экране";
+"onboarding_desc_5" = "Добавьте Skyrift как виджет на главный экран для быстрого доступа к погоде";
+"onboarding_skip" = "Пропустить";
+"onboarding_next" = "Далее";
+"onboarding_start" = "Начать";

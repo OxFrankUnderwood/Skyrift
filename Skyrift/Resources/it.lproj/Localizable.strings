@@ -165,3 +165,16 @@
 "smart_alerts_title" = "Avvisi intelligenti";
 "sunrise" = "Alba";
 "sunset" = "Tramonto";
+"onboarding_title_1" = "Monitoraggio meteo";
+"onboarding_desc_1" = "Accedi istantaneamente alle informazioni meteo attuali";
+"onboarding_title_2" = "Più luoghi";
+"onboarding_desc_2" = "Aggiungi e monitora tutti i luoghi che vuoi";
+"onboarding_title_3" = "Notifiche in diretta";
+"onboarding_desc_3" = "Vedi sempre il meteo con Live Activity";
+"onboarding_title_4" = "Suggerimenti intelligenti";
+"onboarding_desc_4" = "Ricevi consigli personalizzati su abbigliamento e attività in base al meteo";
+"onboarding_title_5" = "Widget schermata Home";
+"onboarding_desc_5" = "Aggiungi Skyrift alla schermata Home per vedere il meteo a colpo d'occhio";
+"onboarding_skip" = "Salta";
+"onboarding_next" = "Avanti";
+"onboarding_start" = "Inizia";
