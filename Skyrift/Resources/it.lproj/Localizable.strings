@@ -43,6 +43,7 @@
 
 "locations_title" = "Luoghi";
 "use_current_location" = "Usa posizione attuale";
+"current_location" = "Posizione attuale";
 "saved_locations" = "Luoghi salvati";
 "popular_cities" = "Città popolari";
 "search_placeholder" = "Cerca città o paese...";

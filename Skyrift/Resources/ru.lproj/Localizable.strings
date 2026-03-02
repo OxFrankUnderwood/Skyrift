@@ -43,6 +43,7 @@
 
 "locations_title" = "Места";
 "use_current_location" = "Использовать текущее местоположение";
+"current_location" = "Текущее местоположение";
 "saved_locations" = "Сохраненные места";
 "popular_cities" = "Популярные города";
 "search_placeholder" = "Поиск города или страны...";

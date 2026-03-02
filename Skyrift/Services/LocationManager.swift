@@ -100,7 +100,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
             } catch {
                 print("Reverse geocode error: \(error.localizedDescription)")
                 await MainActor.run {
-                    self.cityName = "Mevcut Konum"
+                    self.cityName = L10n.currentLocation.localized
                 }
             }
         }

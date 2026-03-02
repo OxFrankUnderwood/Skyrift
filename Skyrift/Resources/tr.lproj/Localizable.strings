@@ -43,6 +43,7 @@
 
 "locations_title" = "Konumlar";
 "use_current_location" = "Mevcut Konumumu Kullan";
+"current_location" = "Mevcut Konum";
 "saved_locations" = "Kayıtlı Konumlar";
 "popular_cities" = "Popüler Şehirler";
 "search_placeholder" = "Şehir veya ülke ara...";

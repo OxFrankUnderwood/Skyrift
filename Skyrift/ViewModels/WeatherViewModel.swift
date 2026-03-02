@@ -213,7 +213,7 @@ final class WeatherViewModel {
     func selectCurrentLocation(locationManager: LocationManager) async {
         guard let coordinate = locationManager.coordinate else { return }
         let location = WeatherLocation(
-            name: locationManager.cityName.isEmpty ? "Mevcut Konum" : locationManager.cityName,
+            name: locationManager.cityName.isEmpty ? L10n.currentLocation.localized : locationManager.cityName,
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
             isCurrentLocation: true
@@ -224,7 +224,7 @@ final class WeatherViewModel {
     // Mevcut konum placeholder'ını ekle/güncelle
     func addCurrentLocationPlaceholder(name: String, latitude: Double, longitude: Double) {
         let placeholder = WeatherLocation(
-            name: name.isEmpty ? "Mevcut Konum" : name,
+            name: name.isEmpty ? L10n.currentLocation.localized : name,
             latitude: latitude,
             longitude: longitude,
             isCurrentLocation: true

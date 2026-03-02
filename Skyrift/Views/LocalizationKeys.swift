@@ -37,6 +37,7 @@ enum L10n {
     // MARK: - Location Search
     static let locationsTitle = "locations_title"
     static let useCurrentLocation = "use_current_location"
+    static let currentLocation = "current_location"
     static let savedLocations = "saved_locations"
     static let searchResults = "search_results"
     static let searchResultsCount = "search_results_count"

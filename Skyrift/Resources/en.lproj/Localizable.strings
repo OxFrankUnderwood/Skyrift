@@ -43,6 +43,7 @@
 
 "locations_title" = "Locations";
 "use_current_location" = "Use Current Location";
+"current_location" = "Current Location";
 "saved_locations" = "Saved Locations";
 "popular_cities" = "Popular Cities";
 "search_placeholder" = "Search city or country...";
