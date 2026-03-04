@@ -161,7 +161,7 @@ struct SettingsView: View {
                         Text(L10n.version.localized)
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("1.0.0")
+                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "–")
                             .foregroundStyle(.tertiary)
                     }
                     .font(.subheadline)
