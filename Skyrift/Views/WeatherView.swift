@@ -5,6 +5,7 @@
 
 import Charts
 import SwiftUI
+import WeatherKit
 
 struct WeatherView: View {
     var viewModel: WeatherViewModel
@@ -17,6 +18,7 @@ struct WeatherView: View {
     @State private var gradientShifting = false
     @AppStorage("enableAnimations") private var enableAnimations = true
     @AppStorage("temperatureUnit") private var temperatureUnitRaw = TemperatureUnit.celsius.rawValue
+    @Environment(\.colorScheme) private var colorScheme
     
     private var temperatureUnit: TemperatureUnit {
         TemperatureUnit(rawValue: temperatureUnitRaw) ?? .celsius
@@ -42,13 +44,23 @@ struct WeatherView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     if let cityName = viewModel.selectedLocation?.cityName {
-                        Text(cityName)
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.primary)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .glassEffect(.regular.tint(.blue.opacity(0.1)), in: .capsule)
+                        if #available(iOS 26, *) {
+                            Text(cityName)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.primary)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .glassEffect(.regular.tint(.blue.opacity(0.1)), in: .capsule)
+                        } else {
+                            Text(cityName)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.primary)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(.ultraThinMaterial, in: .capsule)
+                        }
                     }
                 }
             }
@@ -234,6 +246,8 @@ struct WeatherView: View {
                         }
                     }
                 }
+
+                appleWeatherAttribution
             }
             .padding(.top, 100) // Navigation bar için üst boşluk - artırıldı
             .padding(.vertical)
@@ -330,6 +344,30 @@ struct WeatherView: View {
             withAnimation(.easeInOut(duration: 5).repeatForever(autoreverses: true)) {
                 gradientShifting = true
             }
+        }
+    }
+
+    // MARK: - Apple Weather Attribution
+
+    @ViewBuilder
+    private var appleWeatherAttribution: some View {
+        if let attribution = viewModel.weatherAttribution {
+            let markURL = colorScheme == .dark ? attribution.combinedMarkDarkURL : attribution.combinedMarkLightURL
+            Link(destination: attribution.legalPageURL) {
+                AsyncImage(url: markURL) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    Text("Weather")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(height: 16)
+                .padding(.vertical, 8)
+            }
+            .padding(.horizontal)
         }
     }
 

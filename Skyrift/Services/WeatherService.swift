@@ -105,7 +105,7 @@ struct WeatherService {
             maxTemp: day.highTemperature.converted(to: .celsius).value,
             minTemp: day.lowTemperature.converted(to: .celsius).value,
             weatherCode: mapCondition(day.condition),
-            precipitationSum: day.precipitationAmount.converted(to: .millimeters).value,
+            precipitationSum: day.precipitationAmountByType.precipitation.converted(to: .millimeters).value,
             maxWindSpeed: day.wind.speed.converted(to: .metersPerSecond).value,
             uvIndexMax: Double(day.uvIndex.value),
             precipitationProbability: Int((day.precipitationChance * 100).rounded()),
@@ -145,9 +145,12 @@ struct WeatherService {
         case .snow:                                         return 71
         case .heavySnow, .blizzard, .blowingSnow:           return 75
         case .hail:                                         return 96
-        case .thunderstorms, .scatteredThunderstorms:       return 95
+        case .thunderstorms, .scatteredThunderstorms,
+             .isolatedThunderstorms:                        return 95
         case .strongStorms, .tropicalStorm, .hurricane:     return 99
         case .breezy, .windy, .hot, .frigid, .blowingDust:  return 3
+        case .sunShowers:                                   return 61
+        case .sunFlurries:                                  return 71
         @unknown default:                                   return 3
         }
     }

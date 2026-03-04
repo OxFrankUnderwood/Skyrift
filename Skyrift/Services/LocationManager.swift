@@ -75,12 +75,19 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         #endif
     }
 
-    @available(iOS, deprecated: 26.0, message: "Migrate to MKAddress when API stabilizes")
     private func extractCityName(from mapItem: MKMapItem) -> String {
-        mapItem.placemark.locality
-            ?? mapItem.placemark.administrativeArea
-            ?? mapItem.name
-            ?? "unknown_location".localized
+        if #available(iOS 26, *) {
+            return mapItem.addressRepresentations?.cityName
+                ?? mapItem.addressRepresentations?.cityWithContext
+                ?? mapItem.address?.shortAddress
+                ?? mapItem.name
+                ?? "unknown_location".localized
+        } else {
+            return mapItem.placemark.locality
+                ?? mapItem.placemark.administrativeArea
+                ?? mapItem.name
+                ?? "unknown_location".localized
+        }
     }
 
     private func reverseGeocode(location: CLLocation) {

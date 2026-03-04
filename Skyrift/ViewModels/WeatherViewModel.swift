@@ -7,6 +7,9 @@ import CoreLocation
 import Foundation
 import Observation
 import SwiftUI
+import WeatherKit
+
+private typealias WKService = WeatherKit.WeatherService
 
 @Observable
 final class WeatherViewModel {
@@ -18,6 +21,7 @@ final class WeatherViewModel {
     var weatherData: WeatherData?
     var isLoading = false
     var errorMessage: String?
+    var weatherAttribution: WeatherAttribution?
 
     private let service = WeatherService()
     private let userDefaultsKey = "savedLocations"
@@ -94,6 +98,11 @@ final class WeatherViewModel {
                 errorMessage = nil
                 selectedLocation = location
             }
+        }
+
+        // Attribution'ı bir kez fetch et
+        if weatherAttribution == nil {
+            weatherAttribution = try? await WKService.shared.attribution
         }
 
         do {
