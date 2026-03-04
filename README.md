@@ -2,6 +2,8 @@
 
 A clean, native weather app for iOS, macOS, and visionOS built entirely with SwiftUI and Apple WeatherKit. No third-party dependencies, no API keys required.
 
+**Current version: 1.0.1 (build 2)**
+
 ---
 
 ## Features
@@ -40,7 +42,7 @@ A clean, native weather app for iOS, macOS, and visionOS built entirely with Swi
 
 | Platform | Minimum |
 |----------|---------|
-| iOS | 26.2 |
+| iOS | 18.0 |
 | macOS | 26.2 |
 | visionOS | 26.2 |
 
