@@ -90,11 +90,15 @@ struct ContentView: View {
         .onChange(of: locationManager.coordinate != nil) { oldHad, nowHas in
             // GPS koordinatı ilk kez geldiğinde yükle (önceki oturumdan koordinat yoksa)
             guard !oldHad && nowHas else { return }
-            if viewModel.savedLocations.first?.isCurrentLocation == true && viewModel.weatherData == nil {
+            // savedLocations henüz güncellenmemiş olabilir (geocoding devam ediyor);
+            // isCurrentLocation kontrolü yerine weatherData == nil yeterli.
+            guard viewModel.weatherData == nil else { return }
+            if viewModel.savedLocations.first?.isCurrentLocation == true {
                 Task {
                     await viewModel.selectCurrentLocation(locationManager: locationManager)
                 }
             }
+            // Placeholder henüz eklenmemişse LocationSearchView.onChange(cityName) devralır.
         }
     }
     

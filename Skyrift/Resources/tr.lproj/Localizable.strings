@@ -190,3 +190,5 @@
 "search_failed" = "Arama başarısız: %@";
 "notifications_section" = "Bildirimler";
 "live_activity_footer" = "iPhone 14 Pro ve sonrası için Dynamic Island desteği";
+"live_activity" = "Canlı Etkinlik";
+"aqi_label" = "HKİ";

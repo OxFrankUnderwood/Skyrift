@@ -69,7 +69,8 @@ struct WeatherView: View {
                 if let currentWeather = viewModel.weatherData {
                     DailyDetailView(
                         forecast: selectedDay,
-                        hourlyForecasts: currentWeather.hourly
+                        hourlyForecasts: currentWeather.hourly,
+                        attribution: viewModel.weatherAttribution
                     )
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
@@ -353,21 +354,27 @@ struct WeatherView: View {
     private var appleWeatherAttribution: some View {
         if let attribution = viewModel.weatherAttribution {
             let markURL = colorScheme == .dark ? attribution.combinedMarkDarkURL : attribution.combinedMarkLightURL
-            Link(destination: attribution.legalPageURL) {
-                AsyncImage(url: markURL) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Text("Weather")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.secondary)
+            VStack(spacing: 12) {
+                Divider()
+                    .padding(.horizontal)
+
+                Link(destination: attribution.legalPageURL) {
+                    AsyncImage(url: markURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        Text("Weather")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(height: 16)
                 }
-                .frame(height: 16)
-                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-            .padding(.horizontal)
+            .padding(.top, 8)
+            .padding(.bottom, 16)
         }
     }
 
@@ -708,7 +715,7 @@ struct WeatherView: View {
                 .symbolRenderingMode(.hierarchical)
                 .frame(height: 28)
             
-            Text("AQI \(airQuality.aqi)")
+            Text("\(L10n.aqiLabel.localized) \(airQuality.aqi)")
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundStyle(.white)
                 .lineLimit(1)

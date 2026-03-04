@@ -83,7 +83,7 @@ struct SettingsView: View {
                     if LiveActivityManager.isDeviceSupported {
                         Toggle(isOn: $liveActivityEnabled) {
                             Label {
-                                Text("Live Activity")
+                                Text(L10n.liveActivity.localized)
                                     .font(.body)
                             } icon: {
                                 Image(systemName: "apps.iphone")

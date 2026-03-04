@@ -5,12 +5,15 @@
 
 import SwiftUI
 import Charts
+import WeatherKit
 
 struct DailyDetailView: View {
     let forecast: DailyForecast
     let hourlyForecasts: [HourlyForecast]
-    
+    var attribution: WeatherAttribution? = nil
+
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     @AppStorage("temperatureUnit") private var temperatureUnitRaw = TemperatureUnit.celsius.rawValue
     
     // Filtrelenmiş veri - init'te hazır
@@ -20,9 +23,10 @@ struct DailyDetailView: View {
         TemperatureUnit(rawValue: temperatureUnitRaw) ?? .celsius
     }
     
-    init(forecast: DailyForecast, hourlyForecasts: [HourlyForecast]) {
+    init(forecast: DailyForecast, hourlyForecasts: [HourlyForecast], attribution: WeatherAttribution? = nil) {
         self.forecast = forecast
         self.hourlyForecasts = hourlyForecasts
+        self.attribution = attribution
         
         // Filtrelemeyi hemen yap
         let calendar = Calendar.current
@@ -82,6 +86,7 @@ struct DailyDetailView: View {
                         windChart
                         humidityChart
                         hourlyDetailTable
+                        appleWeatherAttribution
                     } else if hourlyForecasts.isEmpty {
                         #if DEBUG
                         let _ = print("⚠️ hourlyForecasts BOŞ - Loading gösteriliyor")
@@ -130,6 +135,36 @@ struct DailyDetailView: View {
         }
     }
     
+    // MARK: - Apple Weather Attribution
+
+    @ViewBuilder
+    private var appleWeatherAttribution: some View {
+        if let attribution {
+            let markURL = colorScheme == .dark ? attribution.combinedMarkDarkURL : attribution.combinedMarkLightURL
+            VStack(spacing: 12) {
+                Divider()
+                    .padding(.horizontal)
+
+                Link(destination: attribution.legalPageURL) {
+                    AsyncImage(url: markURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        Text("Weather")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(height: 16)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+            .padding(.top, 8)
+            .padding(.bottom, 16)
+        }
+    }
+
     // MARK: - Summary Card
     
     private var summaryCard: some View {

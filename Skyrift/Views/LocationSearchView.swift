@@ -175,6 +175,11 @@ struct LocationSearchView: View {
                         latitude: coord.latitude,
                         longitude: coord.longitude
                     )
+                    // İlk açılışta koordinat gelip geocoding tamamlanınca placeholder
+                    // ekleniyor ama ContentView'ın onChange'i zaten geçmiş olabiliyor.
+                    // Hava durumu yüklenmemişse buradan tetikle.
+                    guard viewModel.weatherData == nil else { return }
+                    Task { await viewModel.selectCurrentLocation(locationManager: locationManager) }
                 }
                 .onChange(of: searchText) { _, newValue in
                     searchTask?.cancel()

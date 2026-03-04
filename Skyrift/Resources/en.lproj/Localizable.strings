@@ -185,3 +185,5 @@
 "search_failed" = "Search failed: %@";
 "notifications_section" = "Notifications";
 "live_activity_footer" = "Dynamic Island support for iPhone 14 Pro and later";
+"live_activity" = "Live Activity";
+"aqi_label" = "AQI";

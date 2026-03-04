@@ -224,4 +224,10 @@ enum L10n {
     static let dailySummaryTitle = "daily_summary_title"
     static let dailySummaryToggle = "daily_summary_toggle"
     static let dailySummaryTime = "daily_summary_time"
+
+    // MARK: - Live Activity
+    static let liveActivity = "live_activity"
+
+    // MARK: - AQI
+    static let aqiLabel = "aqi_label"
 }

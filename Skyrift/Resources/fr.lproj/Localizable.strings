@@ -171,6 +171,8 @@
 "search_failed" = "Échec de la recherche : %@";
 "notifications_section" = "Notifications";
 "live_activity_footer" = "Prise en charge de Dynamic Island pour iPhone 14 Pro et ultérieur";
+"live_activity" = "Activité en direct";
+"aqi_label" = "IQA";
 "onboarding_title_1" = "Suivi météo";
 "onboarding_desc_1" = "Accédez instantanément aux informations météo actuelles";
 "onboarding_title_2" = "Plusieurs lieux";

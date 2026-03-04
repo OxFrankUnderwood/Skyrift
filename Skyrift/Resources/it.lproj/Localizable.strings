@@ -172,6 +172,8 @@
 "search_failed" = "Ricerca fallita: %@";
 "notifications_section" = "Notifiche";
 "live_activity_footer" = "Supporto Dynamic Island per iPhone 14 Pro e successivi";
+"live_activity" = "Attività live";
+"aqi_label" = "IQA";
 "onboarding_title_1" = "Monitoraggio meteo";
 "onboarding_desc_1" = "Accedi istantaneamente alle informazioni meteo attuali";
 "onboarding_title_2" = "Più luoghi";

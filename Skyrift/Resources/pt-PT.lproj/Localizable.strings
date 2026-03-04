@@ -168,6 +168,8 @@
 "search_failed" = "Pesquisa falhou: %@";
 "notifications_section" = "Notificações";
 "live_activity_footer" = "Suporte a Dynamic Island para iPhone 14 Pro e posterior";
+"live_activity" = "Atividade ao vivo";
+"aqi_label" = "IQA";
 "onboarding_title_1" = "Acompanhamento do tempo";
 "onboarding_desc_1" = "Aceda instantaneamente às informações meteorológicas atuais";
 "onboarding_title_2" = "Vários locais";

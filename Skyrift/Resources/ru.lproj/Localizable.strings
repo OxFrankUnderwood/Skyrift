@@ -172,6 +172,8 @@
 "search_failed" = "Ошибка поиска: %@";
 "notifications_section" = "Уведомления";
 "live_activity_footer" = "Поддержка Dynamic Island для iPhone 14 Pro и новее";
+"live_activity" = "Живая активность";
+"aqi_label" = "ИКВ";
 "onboarding_title_1" = "Отслеживание погоды";
 "onboarding_desc_1" = "Получайте мгновенный доступ к актуальной информации о погоде";
 "onboarding_title_2" = "Несколько локаций";
