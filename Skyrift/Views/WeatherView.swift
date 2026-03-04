@@ -213,44 +213,46 @@ struct WeatherView: View {
 
     private func weatherContent(weather: WeatherData) -> some View {
         ScrollView {
-            LazyVStack(spacing: 24, pinnedViews: []) {
-                currentWeatherCard(weather)
+            VStack(spacing: 0) {
+                LazyVStack(spacing: 24, pinnedViews: []) {
+                    currentWeatherCard(weather)
 
-                // Yeni Özellikler - Grid Layout
-                additionalInfoGrid(weather: weather)
+                    // Yeni Özellikler - Grid Layout
+                    additionalInfoGrid(weather: weather)
 
-                Divider()
-                    .padding(.horizontal)
-
-                LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(Array(weather.daily.prefix(10))) { day in
-                        Button {
-                            #if DEBUG
-                            print("🔘 Günlük detay tıklandı: \(day.date)")
-                            print("📦 weather.hourly sayısı: \(weather.hourly.count)")
-                            #endif
-
-                            // Sadece günü seç - sheet kendi verisini alacak
-                            selectedDayForecast = day
-                            #if DEBUG
-                            print("✅ selectedDayForecast set edildi")
-                            #endif
-                        } label: {
-                            DailyForecastRow(forecast: day)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
+                    Divider()
                         .padding(.horizontal)
 
-                        if day.id != weather.daily.prefix(10).last?.id {
-                            Divider().padding(.horizontal)
+                    LazyVStack(alignment: .leading, spacing: 12) {
+                        ForEach(Array(weather.daily.prefix(10))) { day in
+                            Button {
+                                #if DEBUG
+                                print("🔘 Günlük detay tıklandı: \(day.date)")
+                                print("📦 weather.hourly sayısı: \(weather.hourly.count)")
+                                #endif
+
+                                // Sadece günü seç - sheet kendi verisini alacak
+                                selectedDayForecast = day
+                                #if DEBUG
+                                print("✅ selectedDayForecast set edildi")
+                                #endif
+                            } label: {
+                                DailyForecastRow(forecast: day)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.horizontal)
+
+                            if day.id != weather.daily.prefix(10).last?.id {
+                                Divider().padding(.horizontal)
+                            }
                         }
                     }
                 }
 
                 appleWeatherAttribution
             }
-            .padding(.top, 100) // Navigation bar için üst boşluk - artırıldı
+            .padding(.top, 100) // Navigation bar için üst boşluk
             .padding(.vertical)
             .padding(.bottom, 80) // Tab bar için alt boşluk
         }
