@@ -129,7 +129,12 @@ struct DailyDetailView: View {
 #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(L10n.close.localized) { dismiss() }
+                    Button { dismiss() } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.secondary)
+                            .font(.title3)
+                    }
                 }
             }
         }

@@ -186,6 +186,7 @@
 "onboarding_skip" = "Überspringen";
 "onboarding_next" = "Weiter";
 "onboarding_start" = "Loslegen";
+"app_name" = "Skyrift";
 
 "weather_legal_attribution" = "Datenquellen und rechtliche Hinweise";
 "privacy_policy" = "Datenschutzrichtlinie";
