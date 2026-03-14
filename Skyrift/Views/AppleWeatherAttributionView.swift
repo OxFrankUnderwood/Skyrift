@@ -14,7 +14,7 @@ struct AppleWeatherAttributionView: View {
     private let legalURL = URL(string: "https://weatherkit.apple.com/legal-attribution.html")!
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 8) {
             if let attribution {
                 let markURL = colorScheme == .dark
                     ? attribution.combinedMarkDarkURL
@@ -37,6 +37,13 @@ struct AppleWeatherAttributionView: View {
 
             Link(destination: legalURL) {
                 Text("weather_legal_attribution".localized)
+                    .font(.caption2)
+                    .foregroundStyle(.blue)
+                    .underline()
+            }
+
+            Link(destination: legalURL) {
+                Text(legalURL.absoluteString)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .underline()
