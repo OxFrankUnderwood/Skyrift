@@ -163,6 +163,23 @@ struct SettingsView: View {
                 
                 // Hakkında
                 Section(L10n.about.localized) {
+                    Link(destination: URL(string: "https://oxfrankunderwood.github.io/Skyrift/privacy-policy.html")!) {
+                        HStack {
+                            Label {
+                                Text("privacy_policy".localized)
+                                    .font(.body)
+                            } icon: {
+                                Image(systemName: "hand.raised.fill")
+                                    .foregroundStyle(.blue)
+                            }
+                            Spacer()
+                            Image(systemName: "arrow.up.right")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+
                     HStack {
                         Text(L10n.version.localized)
                             .foregroundStyle(.secondary)
