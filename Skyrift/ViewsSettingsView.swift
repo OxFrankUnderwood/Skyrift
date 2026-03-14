@@ -14,6 +14,12 @@ struct SettingsView: View {
     @AppStorage("widgetLocationId") private var widgetLocationId = ""
     @State private var languageManager = LanguageManager.shared
     @State private var settingsLocations: [WeatherLocation] = []
+
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+        return "\(version) (\(build))"
+    }
     
     var body: some View {
         NavigationStack {
@@ -161,7 +167,7 @@ struct SettingsView: View {
                         Text(L10n.version.localized)
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "–")
+                        Text(appVersion)
                             .foregroundStyle(.tertiary)
                     }
                     .font(.subheadline)

@@ -44,6 +44,8 @@ struct InsightsView: View {
                         noDataCard
                     }
                     smartAlertsCard
+
+                    AppleWeatherAttributionView(attribution: viewModel.weatherAttribution)
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)

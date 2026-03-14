@@ -3,6 +3,7 @@
 //  Skyrift
 //
 
+import CoreLocation
 import SwiftUI
 
 struct ContentView: View {
@@ -88,12 +89,17 @@ struct ContentView: View {
             }
         }
         .onChange(of: locationManager.coordinate != nil) { oldHad, nowHas in
-            // GPS koordinatı ilk kez geldiğinde yükle (önceki oturumdan koordinat yoksa)
+            // GPS koordinatı ilk kez geldiğinde yükle
             guard !oldHad && nowHas else { return }
-            // savedLocations henüz güncellenmemiş olabilir (geocoding devam ediyor);
-            // isCurrentLocation kontrolü yerine weatherData == nil yeterli.
-            guard viewModel.weatherData == nil else { return }
-            if viewModel.savedLocations.first?.isCurrentLocation == true {
+            guard let coord = locationManager.coordinate else { return }
+            // Mevcut konum kaydedilmişse ve henüz hava verisi yoksa yükle
+            if let first = viewModel.savedLocations.first, first.isCurrentLocation, viewModel.weatherData == nil {
+                // Koordinatları güncelle (önceden placeholder olabilir)
+                viewModel.addCurrentLocationPlaceholder(
+                    name: locationManager.cityName.isEmpty ? L10n.currentLocation.localized : locationManager.cityName,
+                    latitude: coord.latitude,
+                    longitude: coord.longitude
+                )
                 Task {
                     await viewModel.selectCurrentLocation(locationManager: locationManager)
                 }
@@ -103,21 +109,27 @@ struct ContentView: View {
     }
     
     private func setupAppearance() {
-        // TabBar şeffaf - optimize edilmiş
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithTransparentBackground()
-        
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-        if #available(iOS 15.0, *) {
+        if #available(iOS 26, *) {
+            // iOS 26: Şeffaf arka plan — sistem floating glass tab bar sağlıyor
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithTransparentBackground()
+            UITabBar.appearance().standardAppearance = tabBarAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        }
-        
-        // NavigationBar şeffaf - optimize edilmiş
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-        if #available(iOS 15.0, *) {
+
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithTransparentBackground()
+            UINavigationBar.appearance().standardAppearance = navBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        } else {
+            // iOS 18: Blur material arka plan
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithDefaultBackground()
+            UINavigationBar.appearance().standardAppearance = navBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         }
     }

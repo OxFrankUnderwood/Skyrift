@@ -186,3 +186,5 @@
 "onboarding_skip" = "Ignorer";
 "onboarding_next" = "Suivant";
 "onboarding_start" = "Commencer";
+
+"weather_legal_attribution" = "Sources des données et mentions légales";

@@ -4,6 +4,7 @@
 //
 
 import Charts
+import CoreLocation
 import SwiftUI
 import WeatherKit
 
@@ -24,58 +25,42 @@ struct WeatherView: View {
         TemperatureUnit(rawValue: temperatureUnitRaw) ?? .celsius
     }
 
+    private var safeAreaTop: CGFloat {
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
+            .keyWindow?.safeAreaInsets.top ?? 59
+    }
+
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Arka plan
-                if let weather = viewModel.weatherData, enableAnimations {
-                    WeatherBackgroundView(
-                        weatherCode: weather.current.weatherCode,
-                        isDay: weather.current.isDay == 1
-                    )
-                    .opacity(0.3)
-                    .allowsHitTesting(false)
-                }
-                
-                // İçerik
-                contentView
+        ZStack(alignment: .top) {
+            // Arka plan
+            if let weather = viewModel.weatherData, enableAnimations {
+                WeatherBackgroundView(
+                    weatherCode: weather.current.weatherCode,
+                    isDay: weather.current.isDay == 1
+                )
+                .opacity(0.3)
+                .allowsHitTesting(false)
             }
-            .ignoresSafeArea()
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    if let cityName = viewModel.selectedLocation?.cityName {
-                        if #available(iOS 26, *) {
-                            Text(cityName)
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.primary)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .glassEffect(.regular.tint(.blue.opacity(0.1)), in: .capsule)
-                        } else {
-                            Text(cityName)
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.primary)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(.ultraThinMaterial, in: .capsule)
-                        }
-                    }
-                }
-            }
-            .sheet(item: $selectedDayForecast) { selectedDay in
-                // Sheet açıldığında viewModel'dan CANLI veriyi al
-                if let currentWeather = viewModel.weatherData {
-                    DailyDetailView(
-                        forecast: selectedDay,
-                        hourlyForecasts: currentWeather.hourly,
-                        attribution: viewModel.weatherAttribution
-                    )
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
-                    .presentationBackground(.ultraThinMaterial)
-                }
+
+            // İçerik
+            contentView
+
+            // Üst lokasyon picker — sabit, status bar altında
+            locationPicker
+                .frame(maxWidth: .infinity)
+                .padding(.top, safeAreaTop)
+        }
+        .ignoresSafeArea(edges: [.top, .bottom])
+        .sheet(item: $selectedDayForecast) { selectedDay in
+            if let currentWeather = viewModel.weatherData {
+                DailyDetailView(
+                    forecast: selectedDay,
+                    hourlyForecasts: currentWeather.hourly,
+                    weatherAttribution: viewModel.weatherAttribution
+                )
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+                .presentationBackground(.ultraThinMaterial)
             }
         }
     }
@@ -100,6 +85,15 @@ struct WeatherView: View {
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
+            .onAppear {
+                syncIndexToSelectedLocation()
+            }
+            .onChange(of: viewModel.selectedLocation?.id) { _, _ in
+                syncIndexToSelectedLocation()
+            }
+            .onChange(of: viewModel.savedLocations.count) { _, _ in
+                syncIndexToSelectedLocation()
+            }
             .onChange(of: currentLocationIndex) { oldValue, newValue in
                 #if DEBUG
                 print("📍 Index değişti: \(oldValue) → \(newValue)")
@@ -138,12 +132,129 @@ struct WeatherView: View {
         }
     }
     
+    // MARK: - Helpers
+
+    private func syncIndexToSelectedLocation() {
+        guard let selectedId = viewModel.selectedLocation?.id,
+              let index = allLocations.firstIndex(where: { $0.id == selectedId }),
+              index != currentLocationIndex else { return }
+        currentLocationIndex = index
+    }
+
+    // MARK: - Location Picker
+
+    @ViewBuilder
+    private var locationPicker: some View {
+        if allLocations.count <= 1 {
+            if let cityName = viewModel.selectedLocation?.cityName {
+                singleLocationChip(name: cityName)
+                    .padding(.top, 8)
+            }
+        } else {
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        Spacer().frame(width: UIScreen.main.bounds.width / 2 - 60)
+
+                        ForEach(Array(allLocations.enumerated()), id: \.element.id) { index, location in
+                            let distance = abs(index - currentLocationIndex)
+                            let label = location.cityName
+                            let isSelected = index == currentLocationIndex
+                            let scale: CGFloat = isSelected ? 1.0 : max(0.72, 0.88 - CGFloat(distance) * 0.08)
+                            let opacity: Double = isSelected ? 1.0 : max(0.3, 0.65 - Double(distance) * 0.2)
+
+                            locationChip(
+                                name: label,
+                                isSelected: isSelected,
+                                isCurrentLocation: location.isCurrentLocation
+                            )
+                            .scaleEffect(scale, anchor: .center)
+                            .opacity(opacity)
+                            .id(index)
+                            .onTapGesture {
+                                withAnimation(.spring(duration: 0.4, bounce: 0.15)) {
+                                    currentLocationIndex = index
+                                }
+                            }
+                            .animation(.spring(duration: 0.4, bounce: 0.15), value: currentLocationIndex)
+                        }
+
+                        Spacer().frame(width: UIScreen.main.bounds.width / 2 - 60)
+                    }
+                    .padding(.vertical, 8)
+                }
+                .scrollClipDisabled()
+                .onChange(of: currentLocationIndex) { _, newIndex in
+                    withAnimation(.spring(duration: 0.4, bounce: 0.15)) {
+                        proxy.scrollTo(newIndex, anchor: .center)
+                    }
+                }
+                .onAppear {
+                    proxy.scrollTo(currentLocationIndex, anchor: .center)
+                }
+            }
+            .frame(height: 44)
+        }
+    }
+
+    // MARK: - Chip Views
+
+    @ViewBuilder
+    private func singleLocationChip(name: String) -> some View {
+        if #available(iOS 26, *) {
+            Text(name)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .glassEffect(.regular.tint(.blue.opacity(0.1)), in: .capsule)
+        } else {
+            Text(name)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(.ultraThinMaterial, in: .capsule)
+        }
+    }
+
+    @ViewBuilder
+    private func locationChip(name: String, isSelected: Bool, isCurrentLocation: Bool) -> some View {
+        let content = HStack(spacing: 4) {
+            if isCurrentLocation {
+                Image(systemName: "location.fill")
+                    .font(.system(size: isSelected ? 10 : 8))
+            }
+            Text(name)
+                .font(isSelected ? .subheadline.weight(.semibold) : .caption2.weight(.medium))
+                .lineLimit(1)
+        }
+
+        if #available(iOS 26, *) {
+            content
+                .padding(.horizontal, isSelected ? 16 : 10)
+                .padding(.vertical, isSelected ? 8 : 5)
+                .glassEffect(
+                    isSelected
+                        ? .regular.tint(.blue.opacity(0.15))
+                        : .regular.tint(.white.opacity(0.03)),
+                    in: .capsule
+                )
+        } else {
+            content
+                .foregroundStyle(isSelected ? .primary : .secondary)
+                .padding(.horizontal, isSelected ? 16 : 10)
+                .padding(.vertical, isSelected ? 8 : 5)
+                .background(.ultraThinMaterial, in: .capsule)
+        }
+    }
+
     // MARK: - Computed Properties
-    
+
     private var allLocations: [WeatherLocation] {
         viewModel.savedLocations
     }
-    
+
     // MARK: - Location Weather View
     
     @ViewBuilder
@@ -190,6 +301,8 @@ struct WeatherView: View {
 
     // MARK: - Empty State
 
+    @State private var isRequestingLocation = false
+
     private var emptyView: some View {
         VStack(spacing: 20) {
             Image(systemName: "cloud.sun.fill")
@@ -198,32 +311,57 @@ struct WeatherView: View {
             Text(L10n.selectLocation.localized)
                 .foregroundStyle(.secondary)
             Button(L10n.useMyLocation.localized) {
+                isRequestingLocation = true
                 locationManager.requestLocation()
-                Task {
-                    try? await Task.sleep(for: .seconds(1.5))
-                    await viewModel.selectCurrentLocation(locationManager: locationManager)
+                // Koordinat zaten varsa hemen yükle
+                if let coord = locationManager.coordinate {
+                    addCurrentLocationAndLoad(coord: coord)
                 }
+                // Yoksa onChange ile yakalanacak
             }
             .buttonStyle(.borderedProminent)
+            .disabled(isRequestingLocation)
+            .overlay {
+                if isRequestingLocation {
+                    ProgressView()
+                }
+            }
         }
         .padding()
+        .onChange(of: locationManager.coordinate != nil) { _, hasCoord in
+            guard isRequestingLocation, hasCoord, let coord = locationManager.coordinate else { return }
+            addCurrentLocationAndLoad(coord: coord)
+        }
+    }
+
+    private func addCurrentLocationAndLoad(coord: CLLocationCoordinate2D) {
+        isRequestingLocation = false
+        let name = locationManager.cityName.isEmpty ? L10n.currentLocation.localized : locationManager.cityName
+        viewModel.addCurrentLocationPlaceholder(
+            name: name,
+            latitude: coord.latitude,
+            longitude: coord.longitude
+        )
+        UserDefaults.standard.set(true, forKey: "showCurrentLocation")
+        Task {
+            await viewModel.selectCurrentLocation(locationManager: locationManager)
+        }
     }
 
     // MARK: - Weather Content
 
     private func weatherContent(weather: WeatherData) -> some View {
         ScrollView {
-            VStack(spacing: 0) {
-                LazyVStack(spacing: 24, pinnedViews: []) {
-                    currentWeatherCard(weather)
+            LazyVStack(spacing: 16, pinnedViews: []) {
+                currentWeatherCard(weather)
 
-                    // Yeni Özellikler - Grid Layout
-                    additionalInfoGrid(weather: weather)
+                // Yeni Özellikler - Grid Layout
+                additionalInfoGrid(weather: weather)
 
-                    Divider()
-                        .padding(.horizontal)
+                Divider()
+                    .padding(.horizontal)
 
-                    LazyVStack(alignment: .leading, spacing: 12) {
+                LazyVStack(alignment: .leading, spacing: 12) {
                         ForEach(Array(weather.daily.prefix(10))) { day in
                             Button {
                                 #if DEBUG
@@ -248,17 +386,17 @@ struct WeatherView: View {
                             }
                         }
                     }
-                }
 
                 appleWeatherAttribution
-            }
-            .padding(.top, 100) // Navigation bar için üst boşluk
-            .padding(.vertical)
-            .padding(.bottom, 80) // Tab bar için alt boşluk
+                }
+            .padding(.top, safeAreaTop + 20) // Safe area + picker (minimal gap)
         }
         .scrollIndicators(.hidden)
-        .scrollBounceBehavior(.basedOnSize)
         .scrollDismissesKeyboard(.immediately)
+        .scrollBounceBehavior(.basedOnSize)
+        .contentMargins(.top, 0, for: .scrollContent)
+        .contentMargins(.bottom, 0, for: .scrollContent)
+        .safeAreaPadding(.bottom, 16) // Tab bar için minimal padding
         .refreshable {
             await viewModel.refresh()
         }
@@ -337,6 +475,7 @@ struct WeatherView: View {
                     badge: compassDirection(current.windDirection)
                 )
             }
+            .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, 20)
         .onAppear {
@@ -352,32 +491,8 @@ struct WeatherView: View {
 
     // MARK: - Apple Weather Attribution
 
-    @ViewBuilder
     private var appleWeatherAttribution: some View {
-        if let attribution = viewModel.weatherAttribution {
-            let markURL = colorScheme == .dark ? attribution.combinedMarkDarkURL : attribution.combinedMarkLightURL
-            VStack(spacing: 12) {
-                Divider()
-                    .padding(.horizontal)
-
-                Link(destination: attribution.legalPageURL) {
-                    AsyncImage(url: markURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        Text("Weather")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(height: 16)
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-            }
-            .padding(.top, 8)
-            .padding(.bottom, 16)
-        }
+        AppleWeatherAttributionView(attribution: viewModel.weatherAttribution)
     }
 
     // MARK: - Wind Direction
@@ -538,6 +653,8 @@ struct WeatherView: View {
             Text(value)
                 .font(.system(size: 24, weight: .semibold, design: .rounded))
                 .foregroundStyle(.white)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
 
             Text(label)
                 .font(.caption)
@@ -551,7 +668,7 @@ struct WeatherView: View {
                 .padding(.vertical, 3)
                 .background(.white.opacity(badge != nil ? 0.15 : 0), in: Capsule())
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.vertical, 20)
         .padding(.horizontal, 12)
         .background(

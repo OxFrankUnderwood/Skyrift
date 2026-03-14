@@ -3,30 +3,30 @@
 //  Skyrift
 //
 
-import SwiftUI
 import Charts
+import SwiftUI
 import WeatherKit
 
 struct DailyDetailView: View {
     let forecast: DailyForecast
     let hourlyForecasts: [HourlyForecast]
-    var attribution: WeatherAttribution? = nil
+    let weatherAttribution: WeatherAttribution?
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @AppStorage("temperatureUnit") private var temperatureUnitRaw = TemperatureUnit.celsius.rawValue
-    
+
     // Filtrelenmiş veri - init'te hazır
     private let filteredHourly: [HourlyForecast]
-    
+
     private var temperatureUnit: TemperatureUnit {
         TemperatureUnit(rawValue: temperatureUnitRaw) ?? .celsius
     }
-    
-    init(forecast: DailyForecast, hourlyForecasts: [HourlyForecast], attribution: WeatherAttribution? = nil) {
+
+    init(forecast: DailyForecast, hourlyForecasts: [HourlyForecast], weatherAttribution: WeatherAttribution? = nil) {
         self.forecast = forecast
         self.hourlyForecasts = hourlyForecasts
-        self.attribution = attribution
+        self.weatherAttribution = weatherAttribution
         
         // Filtrelemeyi hemen yap
         let calendar = Calendar.current
@@ -86,7 +86,6 @@ struct DailyDetailView: View {
                         windChart
                         humidityChart
                         hourlyDetailTable
-                        appleWeatherAttribution
                     } else if hourlyForecasts.isEmpty {
                         #if DEBUG
                         let _ = print("⚠️ hourlyForecasts BOŞ - Loading gösteriliyor")
@@ -119,6 +118,7 @@ struct DailyDetailView: View {
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
                         .padding(.horizontal)
                     }
+                    AppleWeatherAttributionView(attribution: weatherAttribution)
                 }
                 .padding(.vertical)
             }
@@ -139,13 +139,13 @@ struct DailyDetailView: View {
 
     @ViewBuilder
     private var appleWeatherAttribution: some View {
-        if let attribution {
-            let markURL = colorScheme == .dark ? attribution.combinedMarkDarkURL : attribution.combinedMarkLightURL
+        if let weatherAttribution {
+            let markURL = colorScheme == .dark ? weatherAttribution.combinedMarkDarkURL : weatherAttribution.combinedMarkLightURL
             VStack(spacing: 12) {
                 Divider()
                     .padding(.horizontal)
 
-                Link(destination: attribution.legalPageURL) {
+                Link(destination: weatherAttribution.legalPageURL) {
                     AsyncImage(url: markURL) { image in
                         image
                             .resizable()
